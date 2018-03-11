@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Kiki.WebApp.Data
 {
+    using System.Linq;
+
     public class ApplicationDbContextSeed
     {
         private readonly ApplicationDbContext _context;
@@ -16,13 +18,291 @@ namespace Kiki.WebApp.Data
         }
 
         public async Task SeedAsync()
-        {   
-            if (await _context.Catalogs.AnyAsync()) await SeedDiscountRulesAsync();
-            if (await _context.DiscountRules.AnyAsync()) await SeedCatalogsAsync();
+        {
+            if ((await _context.Database.GetPendingMigrationsAsync()).Any())
+                try
+                {
+                    await _context.Database.MigrateAsync();
+                }
+                catch (Exception e)
+                {
+                    throw;
+                    //TODO Log
+                }
+            if (!await _context.Catalogs.AnyAsync()) await SeedCatalogsAsync();
+            if (!await _context.DiscountRules.AnyAsync()) await SeedDiscountRulesAsync();
         }
 
         private async Task SeedCatalogsAsync()
         {
+            var catalogs = new List<Catalog>
+            {
+                new Catalog
+                {
+                    Name = "BF Goodrich",
+                    SheetIndex = 0,
+                    PriceColumn = "AA",
+                    SizeColumn = "U",
+                    ReferenceColumn = "V",
+                    Info1Column = "T",
+                    Info2Column = "W",
+                    Info3Column = "",
+                    StartLineNumber = 5,
+                    DiscountPercentage = 30,
+                    SizeFormat = 0,
+                    FilePath = "Prix été BF Goodrich.xlsx"
+                },
+                new Catalog
+                {
+                    Name = "Bridgestone",
+                    SheetIndex = 0,
+                    PriceColumn = "O",
+                    SizeColumn = "E",
+                    ReferenceColumn = "",
+                    Info1Column = "B",
+                    Info2Column = "H",
+                    Info3Column = "",
+                    StartLineNumber = 11,
+                    DiscountPercentage = 52,
+                    SizeFormat = 0,
+                    FilePath = "Prix été Bridgestone.xlsm"
+                },
+                new Catalog
+                {
+                    Name = "Continental",
+                    SheetIndex = 0,
+                    PriceColumn = "K",
+                    SizeColumn = "C",
+                    ReferenceColumn = "D",
+                    Info1Column = "C",
+                    Info2Column = "F",
+                    Info3Column = "",
+                    StartLineNumber = 5,
+                    DiscountPercentage = 56,
+                    SizeFormat = (SizeFormatEnum) 1,
+                    FilePath = "Prix été Conti, Uni, Semp, Barum.xlsx"
+                },
+                new Catalog
+                {
+                    Name = "Uniroyal",
+                    SheetIndex = 1,
+                    PriceColumn = "K",
+                    SizeColumn = "C",
+                    ReferenceColumn = "D",
+                    Info1Column = "C",
+                    Info2Column = "F",
+                    Info3Column = "",
+                    StartLineNumber = 5,
+                    DiscountPercentage = 60,
+                    SizeFormat = (SizeFormatEnum) 1,
+                    FilePath = "Prix été Conti, Uni, Semp, Barum.xlsx"
+                },
+                new Catalog
+                {
+                    Name = "Semperit",
+                    SheetIndex = 2,
+                    PriceColumn = "K",
+                    SizeColumn = "C",
+                    ReferenceColumn = "D",
+                    Info1Column = "C",
+                    Info2Column = "F",
+                    Info3Column = "",
+                    StartLineNumber = 5,
+                    DiscountPercentage = 60,
+                    SizeFormat = (SizeFormatEnum) 1,
+                    FilePath = "Prix été Conti, Uni, Semp, Barum.xlsx"
+                },
+                new Catalog
+                {
+                    Name = "Barum",
+                    SheetIndex = 3,
+                    PriceColumn = "K",
+                    SizeColumn = "C",
+                    ReferenceColumn = "D",
+                    Info1Column = "C",
+                    Info2Column = "F",
+                    Info3Column = "",
+                    StartLineNumber = 5,
+                    DiscountPercentage = 60,
+                    SizeFormat = (SizeFormatEnum) 1,
+                    FilePath = "Prix été Conti, Uni, Semp, Barum.xlsx"
+                },
+                new Catalog
+                {
+                    Name = "Cooper",
+                    SheetIndex = 3,
+                    PriceColumn = "H",
+                    SizeColumn = "C",
+                    ReferenceColumn = "B",
+                    Info1Column = "C",
+                    Info2Column = "D",
+                    Info3Column = "",
+                    StartLineNumber = 18,
+                    DiscountPercentage = 52,
+                    SizeFormat = (SizeFormatEnum) 1,
+                    FilePath = "Prix été Cooper.xlsx"
+                },
+                new Catalog
+                {
+                    Name = "Firestone",
+                    SheetIndex = 0,
+                    PriceColumn = "M",
+                    SizeColumn = "D",
+                    ReferenceColumn = "",
+                    Info1Column = "A",
+                    Info2Column = "H",
+                    Info3Column = "",
+                    StartLineNumber = 11,
+                    DiscountPercentage = 52,
+                    SizeFormat = 0,
+                    FilePath = "Prix été Firestone.xlsx"
+                },
+                new Catalog
+                {
+                    Name = "Formula",
+                    SheetIndex = 0,
+                    PriceColumn = "D",
+                    SizeColumn = "C",
+                    ReferenceColumn = "F",
+                    Info1Column = "",
+                    Info2Column = "",
+                    Info3Column = "",
+                    StartLineNumber = 2,
+                    DiscountPercentage = 66,
+                    SizeFormat = (SizeFormatEnum) 2,
+                    FilePath = "Prix été Formula .xlsx"
+                },
+                new Catalog
+                {
+                    Name = "Goodyear, Dunlop, Fulda, Sava",
+                    SheetIndex = 0,
+                    PriceColumn = "K",
+                    SizeColumn = "C",
+                    ReferenceColumn = "",
+                    Info1Column = "G",
+                    Info2Column = "D",
+                    Info3Column = "",
+                    StartLineNumber = 2,
+                    DiscountPercentage = 46,
+                    SizeFormat = (SizeFormatEnum) 2,
+                    FilePath = "Prix été Goodyear, Dunlop, Sava, Fulda.xlsx"
+                },
+                new Catalog
+                {
+                    Name = "Kleber",
+                    SheetIndex = 0,
+                    PriceColumn = "AA",
+                    SizeColumn = "U",
+                    ReferenceColumn = "V",
+                    Info1Column = "T",
+                    Info2Column = "W",
+                    Info3Column = "",
+                    StartLineNumber = 5,
+                    DiscountPercentage = 48,
+                    SizeFormat = 0,
+                    FilePath = "Prix été Kleber.xlsx"
+                },
+                new Catalog
+                {
+                    Name = "Michelin",
+                    SheetIndex = 0,
+                    PriceColumn = "AA",
+                    SizeColumn = "U",
+                    ReferenceColumn = "V",
+                    Info1Column = "T",
+                    Info2Column = "W",
+                    Info3Column = "",
+                    StartLineNumber = 5,
+                    DiscountPercentage = 48,
+                    SizeFormat = 0,
+                    FilePath = "Prix été Michelin .xlsx"
+                },
+                new Catalog
+                {
+                    Name = "Nokian",
+                    SheetIndex = 0,
+                    PriceColumn = "G",
+                    SizeColumn = "B",
+                    ReferenceColumn = "H",
+                    Info1Column = "B",
+                    Info2Column = "C",
+                    Info3Column = "",
+                    StartLineNumber = 16,
+                    DiscountPercentage = 47,
+                    SizeFormat = (SizeFormatEnum) 2,
+                    FilePath = "Prix été Nokian.xlsx"
+                },
+                new Catalog
+                {
+                    Name = "Pirelli",
+                    SheetIndex = 0,
+                    PriceColumn = "D",
+                    SizeColumn = "C",
+                    ReferenceColumn = "F",
+                    Info1Column = "C",
+                    Info2Column = "",
+                    Info3Column = "",
+                    StartLineNumber = 2,
+                    DiscountPercentage = 55,
+                    SizeFormat = (SizeFormatEnum) 2,
+                    FilePath = "Prix été Pirelli.xlsx"
+                },
+                new Catalog
+                {
+                    Name = "Seiberling",
+                    SheetIndex = 0,
+                    PriceColumn = "I",
+                    SizeColumn = "A",
+                    ReferenceColumn = "",
+                    Info1Column = "A",
+                    Info2Column = "D",
+                    Info3Column = "",
+                    StartLineNumber = 11,
+                    DiscountPercentage = 48,
+                    SizeFormat = (SizeFormatEnum) 2,
+                    FilePath = "Prix été Seiberling.xlsm"
+                },
+                new Catalog
+                {
+                    Name = "Tigar",
+                    SheetIndex = 0,
+                    PriceColumn = "AA",
+                    SizeColumn = "U",
+                    ReferenceColumn = "V",
+                    Info1Column = "T",
+                    Info2Column = "W",
+                    Info3Column = "",
+                    StartLineNumber = 5,
+                    DiscountPercentage = 30,
+                    SizeFormat = 0,
+                    FilePath = "Prix été Tigar TTC..xlsx"
+                },
+                new Catalog
+                {
+                    Name = "Yokohama",
+                    SheetIndex = 0,
+                    PriceColumn = "G",
+                    SizeColumn = "B",
+                    ReferenceColumn = "E",
+                    Info1Column = "B",
+                    Info2Column = "F",
+                    Info3Column = "C",
+                    StartLineNumber = 12,
+                    DiscountPercentage = 64,
+                    SizeFormat = (SizeFormatEnum) 2,
+                    FilePath = "Prix été Yoko.xlsx"
+                }
+            };
+            try
+            {
+                await _context.Catalogs.AddRangeAsync(catalogs);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw;
+                //TODO Log
+            }
         }
 
         private async Task SeedDiscountRulesAsync()
@@ -320,7 +600,9 @@ namespace Kiki.WebApp.Data
             try
             {
                 await _context.DiscountRules.AddRangeAsync(discountRules);
-            } catch (Exception ex)
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
             {
                 throw;
                 //Todo log
