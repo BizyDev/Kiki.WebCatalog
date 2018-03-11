@@ -18,16 +18,16 @@ namespace Kiki.WebApp.Data
         }
 
         public async Task SeedAsync()
-        {
+        {   
             if (await _context.Catalogs.AnyAsync()) await SeedDiscountRulesAsync();
             if (await _context.DiscountRules.AnyAsync()) await SeedCatalogsAsync();
         }
 
-        public async Task SeedCatalogsAsync()
+        private async Task SeedCatalogsAsync()
         {
         }
 
-        public async Task SeedDiscountRulesAsync()
+        private async Task SeedDiscountRulesAsync()
         {
             var discountRules = new List<DiscountRule>
             {

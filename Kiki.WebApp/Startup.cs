@@ -26,7 +26,7 @@ namespace Kiki.WebApp
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
+        {       
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -41,12 +41,15 @@ namespace Kiki.WebApp
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
+            services.AddTransient<ApplicationDbContextSeed>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public async Task Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContextSeed contextSeed)
         {
+            await contextSeed.SeedAsync();
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
