@@ -35,7 +35,7 @@ namespace Kiki.WebApp
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(Configuration["Data:SqlLiteConnectionString"]));
+                    options.UseSqlite(Configuration["ConnectionStrings:Sqlite"]));
             services.AddIdentity<IdentityUser, IdentityRole>(options => options.Stores.MaxLengthForKeys = 128)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
