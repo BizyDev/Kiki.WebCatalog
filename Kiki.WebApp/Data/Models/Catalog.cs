@@ -23,6 +23,7 @@ namespace Kiki.WebApp.Data.Models
         public int StartLineNumber { get; set; }
         public decimal DiscountPercentage { get; set; }
         public string SizeColumnRegex { get; set; }
+        public string FilePath { get; set; }
         public ICollection<Product> Products { get; set; }
     }
 }
