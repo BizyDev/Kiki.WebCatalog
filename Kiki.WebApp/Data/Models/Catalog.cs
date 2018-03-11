@@ -11,6 +11,7 @@ namespace Kiki.WebApp.Data.Models
 
         public int Id { get; set; }
         public string Name { get; set; }
+        public int SheetIndex { get; set; }
         public string PriceColumn { get; set; }
         public string SizeColumn { get; set; }
         public string ReferenceColumn { get; set; }
@@ -19,7 +20,7 @@ namespace Kiki.WebApp.Data.Models
         public string Info3Column { get; set; }
         public int StartLineNumber { get; set; }
         public decimal DiscountPercentage { get; set; }
-        public string SizeColumnRegex { get; set; }
+        public SizeFormatEnum SizeFormat { get; set; }
         public string FilePath { get; set; }
         public ICollection<Product> Products { get; set; }
     }
