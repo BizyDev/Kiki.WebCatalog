@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace Kiki.WebApp.Migrations
+﻿namespace Kiki.WebApp.Data.Migrations
 {
+    using System;
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class ProductionDbModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
