@@ -1,23 +1,21 @@
 ﻿namespace Kiki.WebApp.Controllers
 {
-    using System;
     using System.Collections.Immutable;
-    using System.IO;
-    using System.Linq;
     using Data;
-    using Data.Models;
     using Microsoft.AspNetCore.Mvc;
-    using OfficeOpenXml;
+    using Services;
 
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ExcelReaderService _excelReader;
 
-        public ProductsController(ApplicationDbContext context)
+        public ProductsController(ApplicationDbContext context, ExcelReaderService excelReader)
         {
             _context = context;
+            _excelReader = excelReader;
         }
 
         [HttpGet]
@@ -27,12 +25,13 @@
             var rules = _context.DiscountRules.ToImmutableList();
             foreach (var catalog in catalogs)
             {
-                
+                if (!System.IO.File.Exists(@"C:\workspace\#lab\Kiki.WebCatalog\Docs\" + catalog.FilePath)) continue;
+                var products = _excelReader.GetLines(catalog, rules,  @"C:\workspace\#lab\Kiki.WebCatalog\Docs");
+                _context.Products.AddRangeAsync(products);
+                _context.SaveChangesAsync();
             }
 
             return Ok();
         }
-
-
     }
 }

@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Kiki.WebApp
 {
+    using Services;
+
     public class Startup
     {
         public Startup(IConfiguration configuration) => Configuration = configuration;
@@ -34,6 +36,7 @@ namespace Kiki.WebApp
                 .AddDefaultTokenProviders();
 
             services.AddTransient<ApplicationDbContextSeed>();
+            services.AddTransient<ExcelReaderService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

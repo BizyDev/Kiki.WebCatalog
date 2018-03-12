@@ -1,6 +1,5 @@
 ﻿namespace Kiki.WebCatalog.Tests
 {
-    using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
     using Microsoft.EntityFrameworkCore;

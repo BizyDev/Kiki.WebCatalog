@@ -1,7 +1,5 @@
 ﻿namespace Kiki.WebApp.Data.Models
 {
-    using System;
-
     public class Product
     {
         public int Id { get; set; }
