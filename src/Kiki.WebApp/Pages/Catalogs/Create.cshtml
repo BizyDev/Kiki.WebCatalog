@@ -1,0 +1,109 @@
+﻿@page
+@model Catalogs.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Catalog</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Catalog.Name" class="control-label"></label>
+                <input asp-for="Catalog.Name" class="form-control" />
+                <span asp-validation-for="Catalog.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Catalog.SheetIndex" class="control-label"></label>
+                <input asp-for="Catalog.SheetIndex" class="form-control" />
+                <span asp-validation-for="Catalog.SheetIndex" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Catalog.PriceColumn" class="control-label"></label>
+                <input asp-for="Catalog.PriceColumn" class="form-control" />
+                <span asp-validation-for="Catalog.PriceColumn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Catalog.SizeColumn" class="control-label"></label>
+                <input asp-for="Catalog.SizeColumn" class="form-control" />
+                <span asp-validation-for="Catalog.SizeColumn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Catalog.ReferenceColumn" class="control-label"></label>
+                <input asp-for="Catalog.ReferenceColumn" class="form-control" />
+                <span asp-validation-for="Catalog.ReferenceColumn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Catalog.EanColumn" class="control-label"></label>
+                <input asp-for="Catalog.EanColumn" class="form-control" />
+                <span asp-validation-for="Catalog.EanColumn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Catalog.DimensionColumn" class="control-label"></label>
+                <input asp-for="Catalog.DimensionColumn" class="form-control" />
+                <span asp-validation-for="Catalog.DimensionColumn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Catalog.Info1Column" class="control-label"></label>
+                <input asp-for="Catalog.Info1Column" class="form-control" />
+                <span asp-validation-for="Catalog.Info1Column" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Catalog.Info2Column" class="control-label"></label>
+                <input asp-for="Catalog.Info2Column" class="form-control" />
+                <span asp-validation-for="Catalog.Info2Column" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Catalog.Info3Column" class="control-label"></label>
+                <input asp-for="Catalog.Info3Column" class="form-control" />
+                <span asp-validation-for="Catalog.Info3Column" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Catalog.Info4Column" class="control-label"></label>
+                <input asp-for="Catalog.Info4Column" class="form-control" />
+                <span asp-validation-for="Catalog.Info4Column" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Catalog.Info5Column" class="control-label"></label>
+                <input asp-for="Catalog.Info5Column" class="form-control" />
+                <span asp-validation-for="Catalog.Info5Column" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Catalog.StartLineNumber" class="control-label"></label>
+                <input asp-for="Catalog.StartLineNumber" class="form-control" />
+                <span asp-validation-for="Catalog.StartLineNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Catalog.DiscountPercentage" class="control-label"></label>
+                <input asp-for="Catalog.DiscountPercentage" class="form-control" />
+                <span asp-validation-for="Catalog.DiscountPercentage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Catalog.SizeFormat" class="control-label"></label>
+                <select asp-for="Catalog.SizeFormat" class="form-control"></select>
+                <span asp-validation-for="Catalog.SizeFormat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Catalog.File" class="control-label"></label>
+                <input asp-for="Catalog.File" class="form-control" />
+                <span asp-validation-for="Catalog.File" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

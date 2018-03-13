@@ -1,0 +1,97 @@
+﻿@page
+@model Products.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.BasePrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.BasePrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.FinalPrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.FinalPrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Size)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Size)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Dimension)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Dimension)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Reference)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Reference)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.EAN)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.EAN)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Info1)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Info1)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Info2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Info2)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Info3)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Info3)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Info4)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Info4)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Info5)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Info5)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Catalog)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Catalog.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Product.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
