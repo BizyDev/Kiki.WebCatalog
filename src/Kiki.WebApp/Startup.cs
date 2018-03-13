@@ -42,8 +42,8 @@ namespace Kiki.WebApp
 
         public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContextSeed contextSeed)
         {
-            var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
-            configuration.DisableTelemetry = true;
+            //var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
+            //configuration.DisableTelemetry = true;
 
             await contextSeed.SeedAsync();
             if (env.IsDevelopment())

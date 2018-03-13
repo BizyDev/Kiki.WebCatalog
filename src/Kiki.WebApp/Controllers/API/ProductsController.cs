@@ -23,6 +23,7 @@
         {
             var catalogs = _context.Catalogs.ToImmutableList();
             var rules = _context.DiscountRules.ToImmutableList();
+
             foreach (var catalog in catalogs)
             {
                 var products = _excelReader.GetLines(catalog, rules);

@@ -29,18 +29,20 @@ namespace Kiki.WebApp.Pages.Catalogs
                 Info1Column = c.Info1Column,
                 Info2Column = c.Info2Column,
                 Info3Column = c.Info3Column,
-                Info4Column = c.Info4Column,
-                Info5Column = c.Info5Column,
-                PriceColumn = c.PriceColumn,
                 Products = c.Products,
                 ReferenceColumn = c.ReferenceColumn,
-                SizeColumn = c.SizeColumn,
                 SheetIndex = c.SheetIndex,
                 SizeFormat = c.SizeFormat,
                 StartLineNumber = c.StartLineNumber,
                 DimensionColumn = c.DimensionColumn,
-                EanColumn = c.EanColumn
-
+                AspectRatioColumn = c.AspectRatioColumn,
+                BasePriceColumn = c.BasePriceColumn,
+                BrandColumn = c.BrandColumn,
+                DiameterColumn = c.BrandColumn,
+                EANColumn = c.EANColumn,
+                LoadIndexSpeedRatingColumn = c.LoadIndexSpeedRatingColumn,
+                ProfilColumn = c.ProfilColumn,
+                WidthColumn = c.WidthColumn
             }).ToListAsync();
         }
     }

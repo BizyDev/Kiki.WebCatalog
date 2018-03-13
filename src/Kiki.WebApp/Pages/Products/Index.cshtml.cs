@@ -27,27 +27,33 @@ namespace Kiki.WebApp.Pages.Products
             }
             Product = await _context.Products
                 .Where(p => EF.Functions.Like(p.Catalog.Name, ToLikeFormat(searchString))
-                            || EF.Functions.Like(p.Name, ToLikeFormat(searchString))
+                            || EF.Functions.Like(p.LoadIndexSpeedRating, ToLikeFormat(searchString))
+                            || EF.Functions.Like(p.Profil, ToLikeFormat(searchString))
                             || EF.Functions.Like(p.Info1, ToLikeFormat(searchString))
                             || EF.Functions.Like(p.Info2, ToLikeFormat(searchString))
                             || EF.Functions.Like(p.Info3, ToLikeFormat(searchString))
+                            || EF.Functions.Like(p.Dimension, ToLikeFormat(searchString))
+                            || EF.Functions.Like(p.EAN, ToLikeFormat(searchString))
                             || EF.Functions.Like(p.Reference, ToLikeFormat(searchString))
+                            || EF.Functions.Like(p.Brand, ToLikeFormat(searchString))
                 )
                 .Select(p => new Product
                 {
                     Id = p.Id,
+                    Width = p.Width,
+                    AspectRatio = p.AspectRatio,
+                    LoadIndexSpeedRating = p.LoadIndexSpeedRating,
+                    Profil = p.Profil,
                     Info1 = p.Info1,
                     Info2 = p.Info2,
                     Info3 = p.Info3,
-                    Info4 = p.Info4,
-                    Info5 = p.Catalog.Name,
-                    Name = p.Name,
                     BasePrice = p.BasePrice,
                     FinalPrice = p.FinalPrice,
                     Dimension = p.Dimension,
                     EAN = p.EAN,
                     Reference = p.Reference,
-                    Size = p.Size
+                    Dimater = p.Dimater,
+                    Brand = p.Brand
                 })
                 .Take(100)
                 .ToListAsync();
