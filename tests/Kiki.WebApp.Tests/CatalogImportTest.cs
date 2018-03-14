@@ -6,6 +6,7 @@
     using Data;
     using Data.Models;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Services;
 
@@ -19,7 +20,7 @@
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             optionsBuilder.UseInMemoryDatabase("Test");
 
-            _excelReaderService = new ExcelReaderService();
+            _excelReaderService = new ExcelReaderService(new Logger<ExcelReaderService>(new LoggerFactory()));
             _context = new ApplicationDbContext(optionsBuilder.Options);
             _context.DiscountRules.AddRange(ApplicationDbContextSeed.Rules);
             _context.SaveChanges();
@@ -32,8 +33,8 @@
             {
                 Name = "Goodyear, Dunlop, Fulda, Sava",
                 SheetIndex = 0,
-                PriceColumn = "K",
-                SizeColumn = "C",
+                BasePriceColumn = "K",
+                DiameterColumn = "C",
                 ReferenceColumn = "A",
                 DimensionColumn = "G",
                 Info2Column = "D",

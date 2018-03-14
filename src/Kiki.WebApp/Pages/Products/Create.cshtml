@@ -1,5 +1,5 @@
 ﻿@page
-@model Products.CreateModel
+@model Kiki.WebApp.Pages.Products.CreateModel
 
 @{
     ViewData["Title"] = "Create";
@@ -14,9 +14,9 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Product.Name" class="control-label"></label>
-                <input asp-for="Product.Name" class="form-control" />
-                <span asp-validation-for="Product.Name" class="text-danger"></span>
+                <label asp-for="Product.Brand" class="control-label"></label>
+                <input asp-for="Product.Brand" class="form-control" />
+                <span asp-validation-for="Product.Brand" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.BasePrice" class="control-label"></label>
@@ -29,16 +29,6 @@
                 <span asp-validation-for="Product.FinalPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Product.Size" class="control-label"></label>
-                <input asp-for="Product.Size" class="form-control" />
-                <span asp-validation-for="Product.Size" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product.Dimension" class="control-label"></label>
-                <input asp-for="Product.Dimension" class="form-control" />
-                <span asp-validation-for="Product.Dimension" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Product.Reference" class="control-label"></label>
                 <input asp-for="Product.Reference" class="form-control" />
                 <span asp-validation-for="Product.Reference" class="text-danger"></span>
@@ -47,6 +37,36 @@
                 <label asp-for="Product.EAN" class="control-label"></label>
                 <input asp-for="Product.EAN" class="form-control" />
                 <span asp-validation-for="Product.EAN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Dimension" class="control-label"></label>
+                <input asp-for="Product.Dimension" class="form-control" />
+                <span asp-validation-for="Product.Dimension" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Width" class="control-label"></label>
+                <input asp-for="Product.Width" class="form-control" />
+                <span asp-validation-for="Product.Width" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.AspectRatio" class="control-label"></label>
+                <input asp-for="Product.AspectRatio" class="form-control" />
+                <span asp-validation-for="Product.AspectRatio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Dimater" class="control-label"></label>
+                <input asp-for="Product.Dimater" class="form-control" />
+                <span asp-validation-for="Product.Dimater" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.LoadIndexSpeedRating" class="control-label"></label>
+                <input asp-for="Product.LoadIndexSpeedRating" class="form-control" />
+                <span asp-validation-for="Product.LoadIndexSpeedRating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Profil" class="control-label"></label>
+                <input asp-for="Product.Profil" class="form-control" />
+                <span asp-validation-for="Product.Profil" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.Info1" class="control-label"></label>
@@ -62,16 +82,6 @@
                 <label asp-for="Product.Info3" class="control-label"></label>
                 <input asp-for="Product.Info3" class="form-control" />
                 <span asp-validation-for="Product.Info3" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product.Info4" class="control-label"></label>
-                <input asp-for="Product.Info4" class="form-control" />
-                <span asp-validation-for="Product.Info4" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Product.Info5" class="control-label"></label>
-                <input asp-for="Product.Info5" class="form-control" />
-                <span asp-validation-for="Product.Info5" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.CatalogId" class="control-label"></label>

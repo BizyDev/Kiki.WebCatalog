@@ -1,5 +1,5 @@
 ﻿@page
-@model Products.DetailsModel
+@model Kiki.WebApp.Pages.Products.DetailsModel
 
 @{
     ViewData["Title"] = "Details";
@@ -12,10 +12,10 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Product.Name)
+            @Html.DisplayNameFor(model => model.Product.Brand)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Product.Name)
+            @Html.DisplayFor(model => model.Product.Brand)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Product.BasePrice)
@@ -30,18 +30,6 @@
             @Html.DisplayFor(model => model.Product.FinalPrice)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Product.Size)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Product.Size)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Product.Dimension)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Product.Dimension)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.Product.Reference)
         </dt>
         <dd>
@@ -52,6 +40,42 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Product.EAN)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Dimension)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Dimension)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Width)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Width)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.AspectRatio)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.AspectRatio)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Dimater)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Dimater)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.LoadIndexSpeedRating)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.LoadIndexSpeedRating)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Profil)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Profil)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Product.Info1)
@@ -70,18 +94,6 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Product.Info3)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Product.Info4)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Product.Info4)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Product.Info5)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Product.Info5)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Product.Catalog)

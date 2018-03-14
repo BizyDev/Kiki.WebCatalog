@@ -7,26 +7,32 @@ using Kiki.WebApp.Data.Models;
 
 namespace Kiki.WebApp.Pages.Products
 {
+    using Microsoft.AspNetCore.Mvc.Rendering;
+
     public class IndexModel : PageModel
     {
         private readonly Data.ApplicationDbContext _context;
-
+        public IList<SelectListItem> Catalogs;
+        public string SelectedCatalog { get; set; }
         public IndexModel(Data.ApplicationDbContext context)
         {
             _context = context;
+            Catalogs = _context.Catalogs.Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString()}).ToList();
         }
 
         public IList<Product> Product { get;set; }
 
-        public async Task OnGetAsync(string searchString)
+        public async Task OnGetAsync(string selectedCatalog, string searchString)
         {
-            if (string.IsNullOrWhiteSpace(searchString))
+            int selectedId = 0;
+            if (string.IsNullOrWhiteSpace(searchString) && !int.TryParse(selectedCatalog, out selectedId))
             {
                 Product = new List<Product>();
                 return;
             }
+            
             Product = await _context.Products
-                .Where(p => EF.Functions.Like(p.Catalog.Name, ToLikeFormat(searchString))
+                .Where(p => (EF.Functions.Like(p.Catalog.Name, ToLikeFormat(searchString))
                             || EF.Functions.Like(p.LoadIndexSpeedRating, ToLikeFormat(searchString))
                             || EF.Functions.Like(p.Profil, ToLikeFormat(searchString))
                             || EF.Functions.Like(p.Info1, ToLikeFormat(searchString))
@@ -35,7 +41,7 @@ namespace Kiki.WebApp.Pages.Products
                             || EF.Functions.Like(p.Dimension, ToLikeFormat(searchString))
                             || EF.Functions.Like(p.EAN, ToLikeFormat(searchString))
                             || EF.Functions.Like(p.Reference, ToLikeFormat(searchString))
-                            || EF.Functions.Like(p.Brand, ToLikeFormat(searchString))
+                            || EF.Functions.Like(p.Brand, ToLikeFormat(searchString))) && (string.IsNullOrWhiteSpace(selectedCatalog) || p.CatalogId == selectedId)
                 )
                 .Select(p => new Product
                 {

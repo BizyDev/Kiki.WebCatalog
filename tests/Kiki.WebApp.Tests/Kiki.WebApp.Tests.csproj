@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Kiki.WebApp\Kiki.WebApp.csproj" />
+    <ProjectReference Include="..\..\src\Kiki.WebApp\Kiki.WebApp.csproj" />
   </ItemGroup>
 
 </Project>

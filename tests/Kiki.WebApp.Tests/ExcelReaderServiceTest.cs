@@ -6,6 +6,7 @@
     using Data;
     using Data.Models;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Services;
 
@@ -19,7 +20,7 @@
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             optionsBuilder.UseInMemoryDatabase("Test");
             
-            _excelReaderService = new ExcelReaderService();
+            _excelReaderService = new ExcelReaderService(new Logger<ExcelReaderService>(new LoggerFactory()));
             _context = new ApplicationDbContext(optionsBuilder.Options);
             _context.DiscountRules.AddRange(ApplicationDbContextSeed.Rules);
             _context.SaveChanges();
@@ -32,8 +33,8 @@
             {
                 Name = "Pirelli",
                 SheetIndex = 0,
-                PriceColumn = "D",
-                SizeColumn = "C",
+                BasePriceColumn = "D",
+                DiameterColumn = "C",
                 ReferenceColumn = "F",
                 DimensionColumn = "C",
                 Info2Column = "",
@@ -52,6 +53,15 @@
             products.ForEach(p => _context.Entry(p).State = EntityState.Added);
             _context.SaveChanges();
             Assert.IsTrue(_context.Products.Any());
+        }
+
+        [TestMethod]
+        [DataRow(16, 202, 52, 157)]
+        [DataRow(13, 92, 66, 64)]
+        public void ShouldCalculateFinalPrice(int size, int price, int discount, int result)
+        {
+            var finalPrice = ExcelReaderService.CalculateFinalPrice(ApplicationDbContextSeed.Rules, size, price, discount);
+            Assert.AreEqual(finalPrice, result);
         }
     }
 }
