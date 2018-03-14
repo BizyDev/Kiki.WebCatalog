@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2002
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kiki.WebApp", "Kiki.WebApp\Kiki.WebApp.csproj", "{132ED9BA-7560-405D-92AC-B5E07303E2D9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kiki.WebApp.Tests", "..\tests\Kiki.WebApp.Tests\Kiki.WebApp.Tests.csproj", "{70EAA440-32CB-4C1A-A83B-DD1535501499}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{132ED9BA-7560-405D-92AC-B5E07303E2D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{132ED9BA-7560-405D-92AC-B5E07303E2D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{132ED9BA-7560-405D-92AC-B5E07303E2D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{132ED9BA-7560-405D-92AC-B5E07303E2D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70EAA440-32CB-4C1A-A83B-DD1535501499}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70EAA440-32CB-4C1A-A83B-DD1535501499}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70EAA440-32CB-4C1A-A83B-DD1535501499}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70EAA440-32CB-4C1A-A83B-DD1535501499}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4293DD0B-5781-40E2-815F-060338D4383E}
+	EndGlobalSection
+EndGlobal

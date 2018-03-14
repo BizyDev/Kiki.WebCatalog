@@ -1,0 +1,136 @@
+﻿@page
+@model Kiki.WebApp.Pages.Catalogs.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Catalog</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.SheetIndex)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.SheetIndex)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.BrandColumn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.BrandColumn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.BasePriceColumn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.BasePriceColumn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.ReferenceColumn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.ReferenceColumn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.EANColumn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.EANColumn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.DimensionColumn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.DimensionColumn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.WidthColumn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.WidthColumn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.AspectRatioColumn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.AspectRatioColumn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.DiameterColumn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.DiameterColumn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.LoadIndexSpeedRatingColumn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.LoadIndexSpeedRatingColumn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.ProfilColumn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.ProfilColumn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.Info1Column)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.Info1Column)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.Info2Column)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.Info2Column)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.Info3Column)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.Info3Column)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.StartLineNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.StartLineNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.DiscountPercentage)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.DiscountPercentage)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.SizeFormat)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.SizeFormat)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.File)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.File)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Catalog.Id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

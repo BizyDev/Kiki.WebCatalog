@@ -1,0 +1,133 @@
+﻿@page
+@model Kiki.WebApp.Pages.Products.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Pneus</h2>
+
+<div class="row">
+    <form>
+        <div class="col-lg-4">
+            <select class="form-control" asp-for="SelectedCatalog" asp-items="Model.Catalogs">
+                <option value="">Toutes</option>
+            </select>
+        </div>
+        <div class="col-lg-7">
+            <input class="form-control col-lg-10" type="text" name="SearchString" placeholder="Rechercher">
+        </div>
+        <div class="col-lg-1">
+            <input class="form-control col-lg-2" type="submit" value="Go !" />
+        </div>
+
+    </form>
+</div>
+@*<p>
+        <a asp-page="Create">Create New</a>
+    </p>*@
+<div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Marque
+                </th>
+                <th>
+                    Prix de base
+                </th>
+                <th>
+                    Prix final
+                </th>
+                <th>
+                    Réf
+                </th>
+                <th>
+                    EAN
+                </th>
+                <th>
+                    Dimension
+                </th>
+                <th>
+                    Largeur
+                </th>
+                <th>
+                    Rapport
+                </th>
+                <th>
+                    Diamètre
+                </th>
+                <th>
+                    Indice de charge/vitesse
+                </th>
+                <th>
+                    Profil
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product[0].Info1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product[0].Info2)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product[0].Info3)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Product)
+            {
+                <tr>
+                    <td>
+                        <b>@item.Brand</b>
+                    </td>
+                    <td>
+                        <b>@item.BasePrice</b>
+                    </td>
+                    <td style="color:#FF0000">
+                        <b>@item.FinalPrice</b>
+                    </td>
+                    <td>
+                        @item.Reference
+                    </td>
+                    <td>
+                        @item.EAN
+                    </td>
+                    <td>
+                        <b>@item.Dimension</b>
+                    </td>
+                    <td>
+                        @item.Width
+                    </td>
+                    <td>
+                        @item.AspectRatio
+                    </td>
+                    <td>
+                        @item.Dimater
+                    </td>
+                    <td>
+                        @item.LoadIndexSpeedRating
+                    </td>
+                    <td>
+                        @item.Profil
+                    </td>
+                    <td>
+                        @item.Info1
+                    </td>
+                    <td>
+                        @item.Info2
+                    </td>
+                    <td>
+                        @item.Info3
+                    </td>
+                    @*<td>
+                            <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
