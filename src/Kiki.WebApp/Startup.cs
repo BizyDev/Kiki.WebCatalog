@@ -33,9 +33,9 @@ namespace Kiki.WebApp
                     options.Conventions.AuthorizeFolder("/");
                     options.Conventions.AllowAnonymousToPage("/Account/Login");
                     //options.Conventions.AllowAnonymousToFolder("/Account/");
-                }).AddRazorPagesOptions(options =>
-                {
-                    options.Conventions.AddPageRoute("/Products/Index", "");
+                //}).AddRazorPagesOptions(options =>
+                //{
+                //    options.Conventions.AddPageRoute("/Products/Index", "");
                 });;
 
             services.AddSingleton<IEmailSender, EmailSender>();
