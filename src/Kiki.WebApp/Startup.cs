@@ -31,8 +31,9 @@ namespace Kiki.WebApp
             services.AddMvc()
                 .AddRazorPagesOptions(options =>
                 {
-                    options.Conventions.AuthorizeFolder("/Account/Manage");
-                    options.Conventions.AuthorizePage("/Account/Logout");
+                    options.Conventions.AuthorizeFolder("/");
+                    options.Conventions.AllowAnonymousToPage("/Account/Login");
+                    //options.Conventions.AllowAnonymousToFolder("/Account/");
                 });
 
             services.AddSingleton<IEmailSender, EmailSender>();

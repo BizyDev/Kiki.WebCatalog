@@ -1,5 +1,5 @@
 ﻿@page
-@model Catalogs.DetailsModel
+@model Kiki.WebApp.Pages.Catalogs.DetailsModel
 
 @{
     ViewData["Title"] = "Details";
@@ -24,16 +24,16 @@
             @Html.DisplayFor(model => model.Catalog.SheetIndex)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Catalog.PriceColumn)
+            @Html.DisplayNameFor(model => model.Catalog.BrandColumn)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Catalog.PriceColumn)
+            @Html.DisplayFor(model => model.Catalog.BrandColumn)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Catalog.SizeColumn)
+            @Html.DisplayNameFor(model => model.Catalog.BasePriceColumn)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Catalog.SizeColumn)
+            @Html.DisplayFor(model => model.Catalog.BasePriceColumn)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Catalog.ReferenceColumn)
@@ -42,16 +42,46 @@
             @Html.DisplayFor(model => model.Catalog.ReferenceColumn)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Catalog.EanColumn)
+            @Html.DisplayNameFor(model => model.Catalog.EANColumn)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Catalog.EanColumn)
+            @Html.DisplayFor(model => model.Catalog.EANColumn)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Catalog.DimensionColumn)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Catalog.DimensionColumn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.WidthColumn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.WidthColumn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.AspectRatioColumn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.AspectRatioColumn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.DiameterColumn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.DiameterColumn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.LoadIndexSpeedRatingColumn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.LoadIndexSpeedRatingColumn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog.ProfilColumn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.ProfilColumn)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Catalog.Info1Column)
@@ -70,18 +100,6 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Catalog.Info3Column)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Catalog.Info4Column)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Catalog.Info4Column)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Catalog.Info5Column)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Catalog.Info5Column)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Catalog.StartLineNumber)

@@ -1,5 +1,5 @@
 ﻿@page
-@model Catalogs.IndexModel
+@model Kiki.WebApp.Pages.Catalogs.IndexModel
 
 @{
     ViewData["Title"] = "Index";
@@ -20,19 +20,34 @@
                     @Html.DisplayNameFor(model => model.Catalog[0].SheetIndex)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Catalog[0].PriceColumn)
+                    @Html.DisplayNameFor(model => model.Catalog[0].BrandColumn)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Catalog[0].SizeColumn)
+                    @Html.DisplayNameFor(model => model.Catalog[0].BasePriceColumn)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Catalog[0].ReferenceColumn)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Catalog[0].EanColumn)
+                    @Html.DisplayNameFor(model => model.Catalog[0].EANColumn)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Catalog[0].DimensionColumn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Catalog[0].WidthColumn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Catalog[0].AspectRatioColumn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Catalog[0].DiameterColumn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Catalog[0].LoadIndexSpeedRatingColumn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Catalog[0].ProfilColumn)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Catalog[0].Info1Column)
@@ -44,12 +59,6 @@
                     @Html.DisplayNameFor(model => model.Catalog[0].Info3Column)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Catalog[0].Info4Column)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Catalog[0].Info5Column)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.Catalog[0].StartLineNumber)
                 </th>
                 <th>
@@ -57,6 +66,9 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Catalog[0].SizeFormat)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Catalog[0].File)
                 </th>
             <th></th>
         </tr>
@@ -67,7 +79,60 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-
+            <td>
+                @Html.DisplayFor(modelItem => item.SheetIndex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BrandColumn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BasePriceColumn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReferenceColumn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EANColumn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DimensionColumn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WidthColumn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AspectRatioColumn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiameterColumn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoadIndexSpeedRatingColumn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProfilColumn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info1Column)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info2Column)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info3Column)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartLineNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiscountPercentage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SizeFormat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.File)
+            </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |

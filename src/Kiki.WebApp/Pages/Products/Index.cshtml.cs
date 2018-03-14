@@ -61,7 +61,7 @@ namespace Kiki.WebApp.Pages.Products
                     Dimater = p.Dimater,
                     Brand = p.Brand
                 })
-                .Take(100)
+                .Take(500)
                 .ToListAsync();
         }
 

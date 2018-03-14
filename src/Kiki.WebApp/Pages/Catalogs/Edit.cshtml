@@ -1,5 +1,5 @@
 ﻿@page
-@model Catalogs.EditModel
+@model Kiki.WebApp.Pages.Catalogs.EditModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -25,14 +25,14 @@
                 <span asp-validation-for="Catalog.SheetIndex" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Catalog.PriceColumn" class="control-label"></label>
-                <input asp-for="Catalog.PriceColumn" class="form-control" />
-                <span asp-validation-for="Catalog.PriceColumn" class="text-danger"></span>
+                <label asp-for="Catalog.BrandColumn" class="control-label"></label>
+                <input asp-for="Catalog.BrandColumn" class="form-control" />
+                <span asp-validation-for="Catalog.BrandColumn" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Catalog.SizeColumn" class="control-label"></label>
-                <input asp-for="Catalog.SizeColumn" class="form-control" />
-                <span asp-validation-for="Catalog.SizeColumn" class="text-danger"></span>
+                <label asp-for="Catalog.BasePriceColumn" class="control-label"></label>
+                <input asp-for="Catalog.BasePriceColumn" class="form-control" />
+                <span asp-validation-for="Catalog.BasePriceColumn" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Catalog.ReferenceColumn" class="control-label"></label>
@@ -40,14 +40,39 @@
                 <span asp-validation-for="Catalog.ReferenceColumn" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Catalog.EanColumn" class="control-label"></label>
-                <input asp-for="Catalog.EanColumn" class="form-control" />
-                <span asp-validation-for="Catalog.EanColumn" class="text-danger"></span>
+                <label asp-for="Catalog.EANColumn" class="control-label"></label>
+                <input asp-for="Catalog.EANColumn" class="form-control" />
+                <span asp-validation-for="Catalog.EANColumn" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Catalog.DimensionColumn" class="control-label"></label>
                 <input asp-for="Catalog.DimensionColumn" class="form-control" />
                 <span asp-validation-for="Catalog.DimensionColumn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Catalog.WidthColumn" class="control-label"></label>
+                <input asp-for="Catalog.WidthColumn" class="form-control" />
+                <span asp-validation-for="Catalog.WidthColumn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Catalog.AspectRatioColumn" class="control-label"></label>
+                <input asp-for="Catalog.AspectRatioColumn" class="form-control" />
+                <span asp-validation-for="Catalog.AspectRatioColumn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Catalog.DiameterColumn" class="control-label"></label>
+                <input asp-for="Catalog.DiameterColumn" class="form-control" />
+                <span asp-validation-for="Catalog.DiameterColumn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Catalog.LoadIndexSpeedRatingColumn" class="control-label"></label>
+                <input asp-for="Catalog.LoadIndexSpeedRatingColumn" class="form-control" />
+                <span asp-validation-for="Catalog.LoadIndexSpeedRatingColumn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Catalog.ProfilColumn" class="control-label"></label>
+                <input asp-for="Catalog.ProfilColumn" class="form-control" />
+                <span asp-validation-for="Catalog.ProfilColumn" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Catalog.Info1Column" class="control-label"></label>
@@ -63,16 +88,6 @@
                 <label asp-for="Catalog.Info3Column" class="control-label"></label>
                 <input asp-for="Catalog.Info3Column" class="form-control" />
                 <span asp-validation-for="Catalog.Info3Column" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Catalog.Info4Column" class="control-label"></label>
-                <input asp-for="Catalog.Info4Column" class="form-control" />
-                <span asp-validation-for="Catalog.Info4Column" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Catalog.Info5Column" class="control-label"></label>
-                <input asp-for="Catalog.Info5Column" class="form-control" />
-                <span asp-validation-for="Catalog.Info5Column" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Catalog.StartLineNumber" class="control-label"></label>
