@@ -8,7 +8,6 @@ namespace Kiki.WebApp
     using Microsoft.Extensions.DependencyInjection;
     using Data;
     using Data.Models;
-    using Microsoft.ApplicationInsights.Extensibility;
     using Services;
 
     public class Startup
