@@ -23,7 +23,7 @@ namespace Kiki.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Configuration["ConnectionStrings:Sqlite"]));
-
+            services.AddLogging();
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
@@ -34,7 +34,10 @@ namespace Kiki.WebApp
                     options.Conventions.AuthorizeFolder("/");
                     options.Conventions.AllowAnonymousToPage("/Account/Login");
                     //options.Conventions.AllowAnonymousToFolder("/Account/");
-                });
+                }).AddRazorPagesOptions(options =>
+                {
+                    options.Conventions.AddPageRoute("/Products/Index", "");
+                });;
 
             services.AddSingleton<IEmailSender, EmailSender>();
             services.AddTransient<ApplicationDbContextSeed>();
@@ -47,10 +50,10 @@ namespace Kiki.WebApp
             //configuration.DisableTelemetry = true;
 
             await contextSeed.SeedAsync();
+            app.UseDeveloperExceptionPage();
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
-                app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
             else
