@@ -10,6 +10,7 @@
     using Extensions;
     using Microsoft.Extensions.Logging;
     using OfficeOpenXml;
+    using OfficeOpenXml.FormulaParsing.Utilities;
 
     public class ExcelReaderService
     {
@@ -28,10 +29,10 @@
                 // get the first worksheet in the workbook
                 var worksheet = package.Workbook.Worksheets[catalog.SheetIndex];
 
-                var start = worksheet.Dimension.Start;
                 var end = worksheet.Dimension.End;
-                for (var row = start.Row + catalog.StartLineNumber; row <= end.Row; row++)
+                for (var row = catalog.StartLineNumber; row <= end.Row; row++)
                 {
+                    var lol = worksheet.Cells[catalog.DimensionColumn + row].TryGetValue<string>(catalog.Name, _logger);
                     var size = string.IsNullOrWhiteSpace(catalog.DiameterColumn) ? StringToSize(worksheet.Cells[catalog.DimensionColumn + row].TryGetValue<string>(catalog.Name, _logger), catalog.SizeFormat) : worksheet.Cells[catalog.DiameterColumn + row].TryGetValue<int>(catalog.Name, _logger);
                     if (size == 0) continue;
                     if (!decimal.TryParse(worksheet.Cells[catalog.BasePriceColumn + row].GetValue<string>(), out var basePrice)) continue;
@@ -53,6 +54,10 @@
                     lines.LoadIndexSpeedRating = string.IsNullOrWhiteSpace(catalog.LoadIndexSpeedRatingColumn)
                         ? string.Empty
                         : ConvertStringArrayToString(catalog.LoadIndexSpeedRatingColumn.Split(':').Select(s => worksheet.Cells[s + row].GetValue<string>()).ToArray());
+
+                    lines.Width = lines.Width ?? int.Parse(new string(lines.Dimension.Where(char.IsDigit).Take(3).ToArray()));
+                    var index = lines.Dimension.IndexOf('/');
+                    lines.AspectRatio = lines.AspectRatio ?? (index > 0 ? int.Parse(new string(lines.Dimension.Substring(index).Where(char.IsDigit).Take(2).ToArray())) : default(int?));
                     yield return lines;
                 }
             }

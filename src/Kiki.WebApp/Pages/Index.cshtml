@@ -1,6 +1,6 @@
 ﻿@page
 @model Kiki.WebApp.Pages.Products.IndexModel
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Index";
 }
@@ -8,14 +8,24 @@
 <h2>Pneus</h2>
 
 <div class="row">
-    <form>
-        <div class="col-lg-4">
+    <div asp-validation-summary="All"></div>
+    <form method="POST">
+        <div class="col-lg-3">
             <select class="form-control" asp-for="SelectedCatalog" asp-items="Model.Catalogs">
                 <option value="">Toutes</option>
             </select>
         </div>
-        <div class="col-lg-7">
-            <input class="form-control col-lg-10" type="text" name="SearchString" placeholder="Rechercher">
+        <div class="col-lg-2">
+            <input class="form-control col-lg-10" type="text" asp-for="Search" placeholder="Recherche">
+        </div>
+        <div class="col-lg-2">
+            <input class="form-control col-lg-10" type="text" asp-for="Width" placeholder="Largeur">
+        </div>
+        <div class="col-lg-2">
+            <input class="form-control col-lg-10" type="text" asp-for="AspectRatio" placeholder="Aspect ratio">
+        </div>
+        <div class="col-lg-2">
+            <input class="form-control col-lg-10" type="text" asp-for="Diameter" placeholder="Diamètre">
         </div>
         <div class="col-lg-1">
             <input class="form-control col-lg-2" type="submit" value="Go !" />
