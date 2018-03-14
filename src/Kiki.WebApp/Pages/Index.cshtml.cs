@@ -7,43 +7,67 @@ using Kiki.WebApp.Data.Models;
 
 namespace Kiki.WebApp.Pages.Products
 {
+    using System.ComponentModel.DataAnnotations;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class IndexModel : PageModel
     {
         private readonly Data.ApplicationDbContext _context;
         public IList<SelectListItem> Catalogs;
+
+        [BindProperty]
+        public string Search { get; set; }
+        
+        [BindProperty]
         public string SelectedCatalog { get; set; }
+
+        [BindProperty]
+        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Que des chiffres please")]
+        public int? Width { get; set; }
+        
+        [BindProperty]
+        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Que des chiffres please")]
+        public int? AspectRatio { get; set; }
+        
+        [BindProperty]
+        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Que des chiffres please")]
+        public int? Diameter { get; set; }
+
         public IndexModel(Data.ApplicationDbContext context)
         {
             _context = context;
             Catalogs = _context.Catalogs.Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString()}).ToList();
         }
 
-        public IList<Product> Product { get;set; }
+        public IList<Product> Product { get;set; } = new List<Product>();
 
-        public async Task OnGetAsync(string selectedCatalog, string searchString)
+        public async Task OnGetAsync(string selectedCatalog, int? width, int? aspectRatio, int? diameter)
+        {
+            
+        }
+
+        public async Task<IActionResult> OnPostAsync()
         {
             int selectedId = 0;
-            if (string.IsNullOrWhiteSpace(searchString) && !int.TryParse(selectedCatalog, out selectedId))
-            {
-                Product = new List<Product>();
-                return;
-            }
-            searchString = searchString?.TrimEnd();
+            if (!ModelState.IsValid || !int.TryParse(SelectedCatalog, out selectedId) && !Width.HasValue && !AspectRatio.HasValue && !Diameter.HasValue && string.IsNullOrWhiteSpace(Search)) return Page();
 
-            Product = _context.Products
-                .Where(p => (string.IsNullOrWhiteSpace(selectedCatalog) || p.CatalogId == selectedId) &&
-                            (EF.Functions.Like(p.Catalog.Name, ToLikeFormat(searchString))
-                             || EF.Functions.Like(p.LoadIndexSpeedRating, ToLikeFormat(searchString))
-                             || EF.Functions.Like(p.Profil, ToLikeFormat(searchString))
-                             || EF.Functions.Like(p.Info1, ToLikeFormat(searchString))
-                             || EF.Functions.Like(p.Info2, ToLikeFormat(searchString))
-                             || EF.Functions.Like(p.Info3, ToLikeFormat(searchString))
-                             || EF.Functions.Like(p.Dimension, ToLikeFormat(searchString))
-                             || EF.Functions.Like(p.EAN, ToLikeFormat(searchString))
-                             || EF.Functions.Like(p.Reference, ToLikeFormat(searchString))
-                             || EF.Functions.Like(p.Brand, ToLikeFormat(searchString)))
+            Product = await _context.Products
+                .Where(p =>
+                    (!Width.HasValue || p.Width == Width)
+                    && (!AspectRatio.HasValue || p.AspectRatio == AspectRatio)
+                    && (!Diameter.HasValue || p.Dimater == Diameter)
+                    && (selectedId < 1 || p.CatalogId == selectedId)
+                    && (string.IsNullOrWhiteSpace(Search) || EF.Functions.Like(p.Catalog.Name, ToLikeFormat(Search))
+                                                          || EF.Functions.Like(p.LoadIndexSpeedRating, ToLikeFormat(Search))
+                                                          || EF.Functions.Like(p.Profil, ToLikeFormat(Search))
+                                                          || EF.Functions.Like(p.Info1, ToLikeFormat(Search))
+                                                          || EF.Functions.Like(p.Info2, ToLikeFormat(Search))
+                                                          || EF.Functions.Like(p.Info3, ToLikeFormat(Search))
+                                                          || EF.Functions.Like(p.Dimension, ToLikeFormat(Search))
+                                                          || EF.Functions.Like(p.EAN, ToLikeFormat(Search))
+                                                          || EF.Functions.Like(p.Reference, ToLikeFormat(Search))
+                                                          || EF.Functions.Like(p.Brand, ToLikeFormat(Search)))
                 )
                 .Select(p => new Product
                 {
@@ -63,8 +87,8 @@ namespace Kiki.WebApp.Pages.Products
                     Dimater = p.Dimater,
                     Brand = p.Brand
                 })
-                .Take(500)
-                .ToList();
+                .ToListAsync();
+            return Page();
         }
 
         public static string ToLikeFormat(string s) => $"%{s}%";

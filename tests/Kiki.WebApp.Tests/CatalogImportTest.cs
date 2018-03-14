@@ -18,38 +18,25 @@
         public CatalogImportTest()
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionsBuilder.UseInMemoryDatabase("Test");
+            optionsBuilder.UseSqlite(@"Data Source=C:\workspace\#lab\Kiki.WebCatalog\src\Kiki.WebApp\Kiki.sqlite");
 
             _excelReaderService = new ExcelReaderService(new Logger<ExcelReaderService>(new LoggerFactory()));
             _context = new ApplicationDbContext(optionsBuilder.Options);
-            _context.DiscountRules.AddRange(ApplicationDbContextSeed.Rules);
-            _context.SaveChanges();
+            //_context.DiscountRules.AddRange(ApplicationDbContextSeed.Rules);
+            //_context.SaveChanges();
         }
 
         [TestMethod]
         public void ShouldAddProductsToDb_WhenFileExists()
         {
-            var catalog = new Catalog
-            {
-                Name = "Goodyear, Dunlop, Fulda, Sava",
-                SheetIndex = 0,
-                BasePriceColumn = "K",
-                DiameterColumn = "C",
-                ReferenceColumn = "A",
-                DimensionColumn = "G",
-                Info2Column = "D",
-                Info3Column = "",
-                StartLineNumber = 2,
-                DiscountPercentage = 46,
-                SizeFormat = (SizeFormatEnum)2,
-                File = File.ReadAllBytes(@"C:\Users\Roxtar\Desktop\kiki\Prix été Goodyear, Dunlop, Sava, Fulda.xlsx")
-            };
-
             var rules = _context.DiscountRules.ToImmutableList();
 
-            var products = _excelReaderService.GetLines(catalog, rules).ToList();
-
-            Assert.IsTrue(products.Any());
+            foreach (var catalog in _context.Catalogs.ToList())
+            {
+                var products = _excelReaderService.GetLines(catalog, rules).ToList();
+                _context.Products.AddRange(products);
+                _context.SaveChanges();
+            }
         }
     }
 }
