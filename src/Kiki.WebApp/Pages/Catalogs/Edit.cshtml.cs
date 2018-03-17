@@ -11,13 +11,28 @@ using Kiki.WebApp.Data.Models;
 
 namespace Kiki.WebApp.Pages.Catalogs
 {
+    using Services;
+    using System.Collections.Immutable;
+    using System.ComponentModel.DataAnnotations;
+    using System.IO;
+    using Microsoft.AspNetCore.Http;
+
     public class EditModel : PageModel
     {
         private readonly Kiki.WebApp.Data.ApplicationDbContext _context;
+        private readonly ExcelReaderService _excelReaderService;
 
-        public EditModel(Kiki.WebApp.Data.ApplicationDbContext context)
+        [BindProperty]
+        [Display(Name = "Catalogue")]
+        public IFormFile CatalogFile { get; set; }
+
+        [BindProperty]
+        public bool SyncProducts { get; set; }
+
+        public EditModel(Kiki.WebApp.Data.ApplicationDbContext context, ExcelReaderService excelReaderService)
         {
             _context = context;
+            _excelReaderService = excelReaderService;
         }
 
         [BindProperty]
@@ -46,6 +61,15 @@ namespace Kiki.WebApp.Pages.Catalogs
                 return Page();
             }
 
+
+            if (CatalogFile != null)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    CatalogFile.CopyTo(ms);
+                    Catalog.File = ms.ToArray();
+                }
+            }
             _context.Attach(Catalog).State = EntityState.Modified;
 
             try
@@ -63,6 +87,16 @@ namespace Kiki.WebApp.Pages.Catalogs
                     throw;
                 }
             }
+
+            if (!SyncProducts) return RedirectToPage("./Index");
+
+            _context.Products.RemoveRange(_context.Products.Select(p => new Product { Id = p.Id}));
+            await _context.SaveChangesAsync();
+
+            var rules = _context.DiscountRules.ToImmutableList();
+            var products = _excelReaderService.GetLines(Catalog, rules);
+            await _context.Products.AddRangeAsync(products);
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }

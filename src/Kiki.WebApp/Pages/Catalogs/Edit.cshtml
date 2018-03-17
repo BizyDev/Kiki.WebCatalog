@@ -105,9 +105,14 @@
                 <span asp-validation-for="Catalog.SizeFormat" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Catalog.File" class="control-label"></label>
-                <input asp-for="Catalog.File" class="form-control" />
-                <span asp-validation-for="Catalog.File" class="text-danger"></span>
+                <label asp-for="SyncProducts" class="control-label"></label>
+                <input asp-for="SyncProducts" type="radio" class="form-control" style="height:auto" />
+                <span asp-validation-for="SyncProducts" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CatalogFile" class="control-label"></label>
+                <input asp-for="CatalogFile" type="file" class="form-control" style="height:auto" />
+                <span asp-validation-for="CatalogFile" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />

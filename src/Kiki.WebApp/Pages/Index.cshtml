@@ -10,13 +10,10 @@
 <div class="row">
     <div asp-validation-summary="All"></div>
     <form method="POST">
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <select class="form-control" asp-for="SelectedCatalog" asp-items="Model.Catalogs">
                 <option value="">Toutes</option>
             </select>
-        </div>
-        <div class="col-lg-2">
-            <input class="form-control col-lg-10" type="text" asp-for="Search" placeholder="Recherche">
         </div>
         <div class="col-lg-2">
             <input class="form-control col-lg-10" type="text" asp-for="Width" placeholder="Largeur">
@@ -27,7 +24,7 @@
         <div class="col-lg-2">
             <input class="form-control col-lg-10" type="text" asp-for="Diameter" placeholder="Diamètre">
         </div>
-        <div class="col-lg-1">
+        <div class="col-lg-2">
             <input class="form-control col-lg-2" type="submit" value="Go !" />
         </div>
 
