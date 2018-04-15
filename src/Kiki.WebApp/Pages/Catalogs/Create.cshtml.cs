@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Kiki.WebApp.Data;
 using Kiki.WebApp.Data.Models;
 
@@ -13,10 +9,7 @@ namespace Kiki.WebApp.Pages.Catalogs
     using System.Collections.Immutable;
     using System.ComponentModel.DataAnnotations;
     using System.IO;
-    using System.Text;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Logging;
     using Services;
 
     public class CreateModel : PageModel
@@ -27,10 +20,10 @@ namespace Kiki.WebApp.Pages.Catalogs
 
         [BindProperty]
         public bool SyncProducts { get; set; }
-        private readonly Kiki.WebApp.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly ExcelReaderService _excelReaderService;
 
-        public CreateModel(Kiki.WebApp.Data.ApplicationDbContext context, ExcelReaderService excelReaderService)
+        public CreateModel(ApplicationDbContext context, ExcelReaderService excelReaderService)
         {
             _context = context;
             _excelReaderService = excelReaderService;

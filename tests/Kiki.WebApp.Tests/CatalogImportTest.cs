@@ -1,10 +1,8 @@
 ﻿namespace Kiki.WebApp.Tests
 {
     using System.Collections.Immutable;
-    using System.IO;
     using System.Linq;
     using Data;
-    using Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
     using Microsoft.VisualStudio.TestTools.UnitTesting;

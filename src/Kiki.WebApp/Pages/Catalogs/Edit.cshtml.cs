@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Kiki.WebApp.Data;
 using Kiki.WebApp.Data.Models;
@@ -19,7 +16,7 @@ namespace Kiki.WebApp.Pages.Catalogs
 
     public class EditModel : PageModel
     {
-        private readonly Kiki.WebApp.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly ExcelReaderService _excelReaderService;
 
         [BindProperty]
@@ -29,7 +26,7 @@ namespace Kiki.WebApp.Pages.Catalogs
         [BindProperty]
         public bool SyncProducts { get; set; }
 
-        public EditModel(Kiki.WebApp.Data.ApplicationDbContext context, ExcelReaderService excelReaderService)
+        public EditModel(ApplicationDbContext context, ExcelReaderService excelReaderService)
         {
             _context = context;
             _excelReaderService = excelReaderService;
