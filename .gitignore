@@ -260,3 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 /src/Kiki.WebApp/wwwroot/lib/
+/src/Kiki.WebApp/Kiki.sqlite

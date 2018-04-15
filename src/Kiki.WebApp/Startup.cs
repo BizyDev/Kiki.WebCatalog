@@ -1,13 +1,13 @@
 namespace Kiki.WebApp
 {
+    using Data;
+    using Data.Models;
     using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Data;
-    using Data.Models;
     using Services;
 
     public class Startup
@@ -32,7 +32,7 @@ namespace Kiki.WebApp
                 {
                     options.Conventions.AuthorizeFolder("/");
                     options.Conventions.AllowAnonymousToPage("/Account/Login");
-                    //options.Conventions.AllowAnonymousToFolder("/Account/");
+                    options.Conventions.AllowAnonymousToFolder("/Account/");
                     //}).AddRazorPagesOptions(options =>
                     //{
                     //    options.Conventions.AddPageRoute("/Products/Index", "");
@@ -45,10 +45,7 @@ namespace Kiki.WebApp
 
         public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContextSeed contextSeed)
         {
-            //var configuration = app.ApplicationServices.GetService<TelemetryConfiguration>();
-            //configuration.DisableTelemetry = true;
-
-            await contextSeed.SeedAsync();
+            await contextSeed.SeedAsync().ConfigureAwait(false);
             app.UseDeveloperExceptionPage();
             if (env.IsDevelopment())
             {
