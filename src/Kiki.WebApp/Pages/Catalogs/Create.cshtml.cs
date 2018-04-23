@@ -1,36 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Kiki.WebApp.Data;
+using Kiki.WebApp.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Kiki.WebApp.Data;
-using Kiki.WebApp.Data.Models;
+using System.Threading.Tasks;
 
 namespace Kiki.WebApp.Pages.Catalogs
 {
-    using System.Collections.Immutable;
-    using System.ComponentModel.DataAnnotations;
-    using System.IO;
-    using System.Text;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Logging;
     using Services;
+    using System.Collections.Immutable;
+    using System.IO;
 
     public class CreateModel : PageModel
     {
+        private readonly ApplicationDbContext _context;
+        private readonly ExcelReaderService _excelReaderService;
+
         [BindProperty]
-        [Display(Name = "Catalogue")]
         public IFormFile CatalogFile { get; set; }
 
         [BindProperty]
         public bool SyncProducts { get; set; }
-        private readonly Kiki.WebApp.Data.ApplicationDbContext _context;
-        private readonly ExcelReaderService _excelReaderService;
 
-        public CreateModel(Kiki.WebApp.Data.ApplicationDbContext context, ExcelReaderService excelReaderService)
+        public CreateModel(ApplicationDbContext context, ExcelReaderService excelReaderService)
         {
             _context = context;
             _excelReaderService = excelReaderService;
@@ -59,13 +51,13 @@ namespace Kiki.WebApp.Pages.Catalogs
                 }
             }
             _context.Catalogs.Add(Catalog);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync().ConfigureAwait(false);
 
             if (!SyncProducts) return RedirectToPage("./Index");
             var rules = _context.DiscountRules.ToImmutableList();
             var products = _excelReaderService.GetLines(Catalog, rules);
-            await _context.Products.AddRangeAsync(products);
-            await _context.SaveChangesAsync();
+            await _context.Products.AddRangeAsync(products).ConfigureAwait(false);
+            await _context.SaveChangesAsync().ConfigureAwait(false);
 
             return RedirectToPage("./Index");
         }

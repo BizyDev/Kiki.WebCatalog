@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Kiki.WebApp.Data.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Kiki.WebApp.Data.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Kiki.WebApp.Pages.Products
 {
-    using System.ComponentModel.DataAnnotations;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
+    using System.ComponentModel.DataAnnotations;
 
     public class IndexModel : PageModel
     {
@@ -18,18 +18,18 @@ namespace Kiki.WebApp.Pages.Products
 
         [BindProperty]
         public string Search { get; set; }
-        
+
         [BindProperty]
         public string SelectedCatalog { get; set; }
 
         [BindProperty]
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Que des chiffres please")]
         public int? Width { get; set; }
-        
+
         [BindProperty]
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Que des chiffres please")]
         public int? AspectRatio { get; set; }
-        
+
         [BindProperty]
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Que des chiffres please")]
         public int? Diameter { get; set; }
@@ -37,15 +37,10 @@ namespace Kiki.WebApp.Pages.Products
         public IndexModel(Data.ApplicationDbContext context)
         {
             _context = context;
-            Catalogs = _context.Catalogs.Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString()}).OrderBy(c => c.Text).ToList();
+            Catalogs = _context.Catalogs.Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }).OrderBy(c => c.Text).ToList();
         }
 
-        public IList<Product> Product { get;set; } = new List<Product>();
-
-        public async Task OnGetAsync(string selectedCatalog, int? width, int? aspectRatio, int? diameter)
-        {
-            
-        }
+        public IList<Product> Product { get; set; } = new List<Product>();
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -76,7 +71,7 @@ namespace Kiki.WebApp.Pages.Products
                     Dimater = p.Dimater,
                     Brand = p.Brand
                 })
-                .ToListAsync();
+                .ToListAsync().ConfigureAwait(false);
             return Page();
         }
     }

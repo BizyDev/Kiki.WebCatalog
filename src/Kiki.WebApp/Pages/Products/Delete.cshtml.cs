@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -12,9 +9,9 @@ namespace Kiki.WebApp.Pages.Products
 {
     public class DeleteModel : PageModel
     {
-        private readonly Kiki.WebApp.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public DeleteModel(Kiki.WebApp.Data.ApplicationDbContext context)
+        public DeleteModel(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -30,7 +27,7 @@ namespace Kiki.WebApp.Pages.Products
             }
 
             Product = await _context.Products
-                .Include(p => p.Catalog).SingleOrDefaultAsync(m => m.Id == id);
+                .Include(p => p.Catalog).SingleOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
 
             if (Product == null)
             {
@@ -46,12 +43,12 @@ namespace Kiki.WebApp.Pages.Products
                 return NotFound();
             }
 
-            Product = await _context.Products.FindAsync(id);
+            Product = await _context.Products.FindAsync(id).ConfigureAwait(false);
 
             if (Product != null)
             {
                 _context.Products.Remove(Product);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync().ConfigureAwait(false);
             }
 
             return RedirectToPage("./Index");

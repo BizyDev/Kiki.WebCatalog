@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -13,9 +11,9 @@ namespace Kiki.WebApp.Pages.Products
 {
     public class EditModel : PageModel
     {
-        private readonly Kiki.WebApp.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public EditModel(Kiki.WebApp.Data.ApplicationDbContext context)
+        public EditModel(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -31,7 +29,7 @@ namespace Kiki.WebApp.Pages.Products
             }
 
             Product = await _context.Products
-                .Include(p => p.Catalog).SingleOrDefaultAsync(m => m.Id == id);
+                .Include(p => p.Catalog).SingleOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
 
             if (Product == null)
             {
@@ -52,7 +50,7 @@ namespace Kiki.WebApp.Pages.Products
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync().ConfigureAwait(false);
             }
             catch (DbUpdateConcurrencyException)
             {

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Kiki.WebApp.Data;
@@ -12,9 +9,9 @@ namespace Kiki.WebApp.Pages.Catalogs
 {
     public class IndexModel : PageModel
     {
-        private readonly Kiki.WebApp.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public IndexModel(Kiki.WebApp.Data.ApplicationDbContext context)
+        public IndexModel(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -23,7 +20,7 @@ namespace Kiki.WebApp.Pages.Catalogs
 
         public async Task OnGetAsync()
         {
-            Catalog = await _context.Catalogs.ToListAsync();
+            Catalog = await _context.Catalogs.ToListAsync().ConfigureAwait(false);
         }
     }
 }

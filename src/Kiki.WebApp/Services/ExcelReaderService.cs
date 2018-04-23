@@ -1,16 +1,15 @@
 ﻿namespace Kiki.WebApp.Services
 {
+    using Data.Models;
+    using Extensions;
+    using Microsoft.Extensions.Logging;
+    using OfficeOpenXml;
     using System;
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.IO;
     using System.Linq;
     using System.Text;
-    using Data.Models;
-    using Extensions;
-    using Microsoft.Extensions.Logging;
-    using OfficeOpenXml;
-    using OfficeOpenXml.FormulaParsing.Utilities;
 
     public class ExcelReaderService
     {
@@ -36,24 +35,26 @@
                     var size = string.IsNullOrWhiteSpace(catalog.DiameterColumn) ? StringToSize(worksheet.Cells[catalog.DimensionColumn + row].TryGetValue<string>(catalog.Name, _logger), catalog.SizeFormat) : worksheet.Cells[catalog.DiameterColumn + row].TryGetValue<int>(catalog.Name, _logger);
                     if (size == 0) continue;
                     if (!decimal.TryParse(worksheet.Cells[catalog.BasePriceColumn + row].GetValue<string>(), out var basePrice)) continue;
-                    var lines = new Product();
-                    lines.BasePrice = basePrice;
-                    lines.Dimater = size;
-                    lines.Brand = catalog.BrandColumn.Contains("x") ? catalog.Name : worksheet.Cells[catalog.BrandColumn + row].TryGetValue<string>(catalog.Name, _logger);
-                    lines.EAN = string.IsNullOrWhiteSpace(catalog.EANColumn) ? string.Empty : worksheet.Cells[catalog.EANColumn + row].GetValue<string>();
-                    lines.Reference = string.IsNullOrWhiteSpace(catalog.ReferenceColumn) ? string.Empty : worksheet.Cells[catalog.ReferenceColumn + row].GetValue<string>();
-                    lines.Info1 = string.IsNullOrWhiteSpace(catalog.Info1Column) ? string.Empty : worksheet.Cells[catalog.Info1Column + row].GetValue<string>();
-                    lines.Info2 = string.IsNullOrWhiteSpace(catalog.Info2Column) ? string.Empty : worksheet.Cells[catalog.Info2Column + row].GetValue<string>();
-                    lines.Info3 = string.IsNullOrWhiteSpace(catalog.Info3Column) ? string.Empty : worksheet.Cells[catalog.Info3Column + row].GetValue<string>();
-                    lines.CatalogId = catalog.Id;
-                    lines.FinalPrice = CalculateFinalPrice(rules, size, basePrice, catalog.DiscountPercentage);
-                    lines.Dimension = string.IsNullOrWhiteSpace(catalog.DimensionColumn) ? string.Empty : worksheet.Cells[catalog.DimensionColumn + row].GetValue<string>();
-                    lines.AspectRatio = string.IsNullOrWhiteSpace(catalog.AspectRatioColumn) ? null : worksheet.Cells[catalog.AspectRatioColumn + row].GetValue<string>().ToNullableInt();
-                    lines.Width = string.IsNullOrWhiteSpace(catalog.WidthColumn) ? null : worksheet.Cells[catalog.WidthColumn + row].GetValue<string>().ToNullableInt();
-                    lines.Profil = string.IsNullOrWhiteSpace(catalog.ProfilColumn) ? string.Empty : worksheet.Cells[catalog.ProfilColumn + row].GetValue<string>();
-                    lines.LoadIndexSpeedRating = string.IsNullOrWhiteSpace(catalog.LoadIndexSpeedRatingColumn)
+                    var lines = new Product
+                    {
+                        BasePrice = basePrice,
+                        Dimater = size,
+                        Brand = catalog.BrandColumn.Contains("x") ? catalog.Name : worksheet.Cells[catalog.BrandColumn + row].TryGetValue<string>(catalog.Name, _logger),
+                        EAN = string.IsNullOrWhiteSpace(catalog.EANColumn) ? string.Empty : worksheet.Cells[catalog.EANColumn + row].GetValue<string>(),
+                        Reference = string.IsNullOrWhiteSpace(catalog.ReferenceColumn) ? string.Empty : worksheet.Cells[catalog.ReferenceColumn + row].GetValue<string>(),
+                        Info1 = string.IsNullOrWhiteSpace(catalog.Info1Column) ? string.Empty : worksheet.Cells[catalog.Info1Column + row].GetValue<string>(),
+                        Info2 = string.IsNullOrWhiteSpace(catalog.Info2Column) ? string.Empty : worksheet.Cells[catalog.Info2Column + row].GetValue<string>(),
+                        Info3 = string.IsNullOrWhiteSpace(catalog.Info3Column) ? string.Empty : worksheet.Cells[catalog.Info3Column + row].GetValue<string>(),
+                        CatalogId = catalog.Id,
+                        FinalPrice = CalculateFinalPrice(rules, size, basePrice, catalog.DiscountPercentage),
+                        Dimension = string.IsNullOrWhiteSpace(catalog.DimensionColumn) ? string.Empty : worksheet.Cells[catalog.DimensionColumn + row].GetValue<string>(),
+                        AspectRatio = string.IsNullOrWhiteSpace(catalog.AspectRatioColumn) ? null : worksheet.Cells[catalog.AspectRatioColumn + row].GetValue<string>().ToNullableInt(),
+                        Width = string.IsNullOrWhiteSpace(catalog.WidthColumn) ? null : worksheet.Cells[catalog.WidthColumn + row].GetValue<string>().ToNullableInt(),
+                        Profil = string.IsNullOrWhiteSpace(catalog.ProfilColumn) ? string.Empty : worksheet.Cells[catalog.ProfilColumn + row].GetValue<string>(),
+                        LoadIndexSpeedRating = string.IsNullOrWhiteSpace(catalog.LoadIndexSpeedRatingColumn)
                         ? string.Empty
-                        : ConvertStringArrayToString(catalog.LoadIndexSpeedRatingColumn.Split(':').Select(s => worksheet.Cells[s + row].GetValue<string>()).ToArray());
+                        : ConvertStringArrayToString(catalog.LoadIndexSpeedRatingColumn.Split(':').Select(s => worksheet.Cells[s + row].GetValue<string>()).ToArray())
+                    };
 
                     lines.Width = lines.Width ?? int.Parse(new string(lines.Dimension.Where(char.IsDigit).Take(3).ToArray()));
                     var index = lines.Dimension.IndexOf('/');
@@ -95,10 +96,7 @@
         private static string ConvertStringArrayToString(string[] array)
         {
             var builder = new StringBuilder();
-            foreach (var value in array)
-            {
-                builder.Append(value);
-            }
+            foreach (var value in array) builder.Append(value);
             return builder.ToString();
         }
     }

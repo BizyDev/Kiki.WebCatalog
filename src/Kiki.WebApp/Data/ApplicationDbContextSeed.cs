@@ -1,12 +1,12 @@
 ﻿namespace Kiki.WebApp.Data
 {
+    using Microsoft.EntityFrameworkCore;
+    using Models;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-    using Microsoft.EntityFrameworkCore;
-    using Models;
 
     public class ApplicationDbContextSeed
     {
@@ -19,18 +19,21 @@
 
         public async Task SeedAsync()
         {
-            if ((await _context.Database.GetPendingMigrationsAsync()).Any())
+            if ((await _context.Database.GetPendingMigrationsAsync().ConfigureAwait(false)).Any())
+            {
                 try
                 {
-                    await _context.Database.MigrateAsync();
+                    await _context.Database.MigrateAsync().ConfigureAwait(false);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     throw;
                     //TODO Log
                 }
-            if (!await _context.Catalogs.AnyAsync()) await SeedCatalogsAsync();
-            if (!await _context.DiscountRules.AnyAsync()) await SeedDiscountRulesAsync();
+            }
+
+            if (!await _context.Catalogs.AnyAsync().ConfigureAwait(false)) await SeedCatalogsAsync().ConfigureAwait(false);
+            if (!await _context.DiscountRules.AnyAsync().ConfigureAwait(false)) await SeedDiscountRulesAsync().ConfigureAwait(false);
         }
 
         private async Task SeedCatalogsAsync()
@@ -38,10 +41,10 @@
             List<Catalog> catalogs = Catalogs;
             try
             {
-                await _context.Catalogs.AddRangeAsync(catalogs);
-                await _context.SaveChangesAsync();
+                await _context.Catalogs.AddRangeAsync(catalogs).ConfigureAwait(false);
+                await _context.SaveChangesAsync().ConfigureAwait(false);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
                 //TODO Log
@@ -413,10 +416,10 @@
         {
             try
             {
-                await _context.DiscountRules.AddRangeAsync(Rules);
-                await _context.SaveChangesAsync();
+                await _context.DiscountRules.AddRangeAsync(Rules).ConfigureAwait(false);
+                await _context.SaveChangesAsync().ConfigureAwait(false);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
                 //Todo log
