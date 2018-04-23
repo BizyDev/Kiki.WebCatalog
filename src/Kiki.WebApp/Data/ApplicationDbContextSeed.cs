@@ -23,7 +23,7 @@
             {
                 try
                 {
-                    await _context.Database.MigrateAsync();
+                    await _context.Database.MigrateAsync().ConfigureAwait(false);
                 }
                 catch (Exception)
                 {
@@ -32,8 +32,8 @@
                 }
             }
 
-            if (!await _context.Catalogs.AnyAsync()) await SeedCatalogsAsync().ConfigureAwait(false);
-            if (!await _context.DiscountRules.AnyAsync()) await SeedDiscountRulesAsync().ConfigureAwait(false);
+            if (!await _context.Catalogs.AnyAsync().ConfigureAwait(false)) await SeedCatalogsAsync().ConfigureAwait(false);
+            if (!await _context.DiscountRules.AnyAsync().ConfigureAwait(false)) await SeedDiscountRulesAsync().ConfigureAwait(false);
         }
 
         private async Task SeedCatalogsAsync()

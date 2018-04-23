@@ -24,13 +24,13 @@ namespace Kiki.WebApp.Pages.Account
                 return RedirectToPage("/Index");
             }
 
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId).ConfigureAwait(false);
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{userId}'.");
             }
 
-            var result = await _userManager.ConfirmEmailAsync(user, code);
+            var result = await _userManager.ConfirmEmailAsync(user, code).ConfigureAwait(false);
             if (!result.Succeeded)
             {
                 throw new ApplicationException($"Error confirming email for user with ID '{userId}':");

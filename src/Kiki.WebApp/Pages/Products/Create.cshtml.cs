@@ -33,7 +33,7 @@ namespace Kiki.WebApp.Pages.Products
             }
 
             _context.Products.Add(Product);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync().ConfigureAwait(false);
 
             return RedirectToPage("./Index");
         }

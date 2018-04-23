@@ -23,7 +23,7 @@ namespace Kiki.WebApp.Pages.Account.Manage
         }
         public async Task<IActionResult> OnGet()
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -34,14 +34,14 @@ namespace Kiki.WebApp.Pages.Account.Manage
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            await _userManager.SetTwoFactorEnabledAsync(user, false);
-            await _userManager.ResetAuthenticatorKeyAsync(user);
+            await _userManager.SetTwoFactorEnabledAsync(user, false).ConfigureAwait(false);
+            await _userManager.ResetAuthenticatorKeyAsync(user).ConfigureAwait(false);
             _logger.LogInformation("User with ID '{UserId}' has reset their authentication app key.", user.Id);
 
             return RedirectToPage("./EnableAuthenticator");

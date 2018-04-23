@@ -25,7 +25,7 @@ namespace Kiki.WebApp.Pages.Catalogs
                 return NotFound();
             }
 
-            Catalog = await _context.Catalogs.SingleOrDefaultAsync(m => m.Id == id);
+            Catalog = await _context.Catalogs.SingleOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
 
             if (Catalog == null)
             {

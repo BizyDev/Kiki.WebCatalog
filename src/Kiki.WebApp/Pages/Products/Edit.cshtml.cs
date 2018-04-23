@@ -29,7 +29,7 @@ namespace Kiki.WebApp.Pages.Products
             }
 
             Product = await _context.Products
-                .Include(p => p.Catalog).SingleOrDefaultAsync(m => m.Id == id);
+                .Include(p => p.Catalog).SingleOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
 
             if (Product == null)
             {
@@ -50,7 +50,7 @@ namespace Kiki.WebApp.Pages.Products
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync().ConfigureAwait(false);
             }
             catch (DbUpdateConcurrencyException)
             {

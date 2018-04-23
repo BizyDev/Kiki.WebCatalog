@@ -20,7 +20,7 @@ namespace Kiki.WebApp.Pages.Catalogs
 
         public async Task OnGetAsync()
         {
-            Catalog = await _context.Catalogs.ToListAsync();
+            Catalog = await _context.Catalogs.ToListAsync().ConfigureAwait(false);
         }
     }
 }

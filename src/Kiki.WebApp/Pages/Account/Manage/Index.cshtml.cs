@@ -49,7 +49,7 @@ namespace Kiki.WebApp.Pages.Account.Manage
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -63,7 +63,7 @@ namespace Kiki.WebApp.Pages.Account.Manage
                 PhoneNumber = user.PhoneNumber
             };
 
-            IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
+            IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user).ConfigureAwait(false);
 
             return Page();
         }
@@ -75,7 +75,7 @@ namespace Kiki.WebApp.Pages.Account.Manage
                 return Page();
             }
 
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -83,7 +83,7 @@ namespace Kiki.WebApp.Pages.Account.Manage
 
             if (Input.Email != user.Email)
             {
-                var setEmailResult = await _userManager.SetEmailAsync(user, Input.Email);
+                var setEmailResult = await _userManager.SetEmailAsync(user, Input.Email).ConfigureAwait(false);
                 if (!setEmailResult.Succeeded)
                 {
                     throw new ApplicationException($"Unexpected error occurred setting email for user with ID '{user.Id}'.");
@@ -92,7 +92,7 @@ namespace Kiki.WebApp.Pages.Account.Manage
 
             if (Input.PhoneNumber != user.PhoneNumber)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber).ConfigureAwait(false);
                 if (!setPhoneResult.Succeeded)
                 {
                     throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
@@ -109,15 +109,15 @@ namespace Kiki.WebApp.Pages.Account.Manage
                 return Page();
             }
 
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user).ConfigureAwait(false);
             var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
-            await _emailSender.SendEmailConfirmationAsync(user.Email, callbackUrl);
+            await _emailSender.SendEmailConfirmationAsync(user.Email, callbackUrl).ConfigureAwait(false);
 
             StatusMessage = "Verification email sent. Please check your email.";
             return RedirectToPage();

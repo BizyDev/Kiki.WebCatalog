@@ -26,7 +26,7 @@ namespace Kiki.WebApp.Pages.Catalogs
                 return NotFound();
             }
 
-            Catalog = await _context.Catalogs.SingleOrDefaultAsync(m => m.Id == id);
+            Catalog = await _context.Catalogs.SingleOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
 
             if (Catalog == null)
             {
@@ -42,12 +42,12 @@ namespace Kiki.WebApp.Pages.Catalogs
                 return NotFound();
             }
 
-            Catalog = await _context.Catalogs.FindAsync(id);
+            Catalog = await _context.Catalogs.FindAsync(id).ConfigureAwait(false);
 
             if (Catalog != null)
             {
                 _context.Catalogs.Remove(Catalog);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync().ConfigureAwait(false);
             }
 
             return RedirectToPage("./Index");
