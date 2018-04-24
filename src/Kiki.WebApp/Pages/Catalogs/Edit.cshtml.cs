@@ -71,7 +71,7 @@ namespace Kiki.WebApp.Pages.Catalogs
 
             if (!SyncProducts) return RedirectToPage("./Index");
 
-            _context.Products.RemoveRange(_context.Products.Select(p => new Product { Id = p.Id }));
+            _context.Products.RemoveRange(_context.Products.Where(p => p.CatalogId == Catalog.Id).Select(p => new Product { Id = p.Id }));
             await _context.SaveChangesAsync().ConfigureAwait(false);
 
             var rules = _context.DiscountRules.ToImmutableList();
