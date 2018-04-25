@@ -15,7 +15,7 @@
     public class EditModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        private readonly ExcelReaderService _excelReaderService;
+        private readonly IExcelReaderService _excelReaderService;
 
         [BindProperty]
         public IFormFile CatalogFile { get; set; }
@@ -23,7 +23,7 @@
         [BindProperty]
         public bool SyncProducts { get; set; }
 
-        public EditModel(ApplicationDbContext context, ExcelReaderService excelReaderService)
+        public EditModel(ApplicationDbContext context, IExcelReaderService excelReaderService)
         {
             _context = context;
             _excelReaderService = excelReaderService;
