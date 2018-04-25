@@ -1,22 +1,22 @@
 ﻿namespace Kiki.WebApp.Services
 {
-    using System;
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.IO;
     using System.Linq;
-    using System.Text;
     using Data.Models;
     using Extensions;
     using Microsoft.Extensions.Logging;
     using OfficeOpenXml;
 
-    public class ExcelReaderService
+    public class ExcelReaderService : IExcelReaderService
     {
+        private readonly IPriceCalculatorService _calculatorService;
         private readonly ILogger<ExcelReaderService> _logger;
 
-        public ExcelReaderService(ILogger<ExcelReaderService> logger)
+        public ExcelReaderService(IPriceCalculatorService calculatorService, ILogger<ExcelReaderService> logger)
         {
+            _calculatorService = calculatorService;
             _logger = logger;
         }
 
@@ -31,11 +31,10 @@
                 var end = worksheet.Dimension.End;
                 for (var row = catalog.StartLineNumber; row <= end.Row; row++)
                 {
-                    var lol = worksheet.Cells[catalog.DimensionColumn + row].TryGetValue<string>(catalog.Name, _logger);
-                    var size = string.IsNullOrWhiteSpace(catalog.DiameterColumn) ? StringToSize(worksheet.Cells[catalog.DimensionColumn + row].TryGetValue<string>(catalog.Name, _logger), catalog.SizeFormat) : worksheet.Cells[catalog.DiameterColumn + row].TryGetValue<int>(catalog.Name, _logger);
+                    var size = string.IsNullOrWhiteSpace(catalog.DiameterColumn) ? worksheet.Cells[catalog.DimensionColumn + row].TryGetValue<string>(catalog.Name, _logger).StringToSize(catalog.SizeFormat) : worksheet.Cells[catalog.DiameterColumn + row].TryGetValue<int>(catalog.Name, _logger);
                     if (size == 0) continue;
                     if (!decimal.TryParse(worksheet.Cells[catalog.BasePriceColumn + row].GetValue<string>(), out var basePrice)) continue;
-                    var lines = new Product
+                    var line = new Product
                     {
                         BasePrice = basePrice,
                         Dimater = size,
@@ -46,59 +45,22 @@
                         Info2 = string.IsNullOrWhiteSpace(catalog.Info2Column) ? string.Empty : worksheet.Cells[catalog.Info2Column + row].GetValue<string>(),
                         Info3 = string.IsNullOrWhiteSpace(catalog.Info3Column) ? string.Empty : worksheet.Cells[catalog.Info3Column + row].GetValue<string>(),
                         CatalogId = catalog.Id,
-                        FinalPrice = CalculateFinalPrice(rules, size, basePrice, catalog.DiscountPercentage),
+                        FinalPrice = _calculatorService.CalculateFinalPrice(rules, size, basePrice, catalog.DiscountPercentage),
                         Dimension = string.IsNullOrWhiteSpace(catalog.DimensionColumn) ? string.Empty : worksheet.Cells[catalog.DimensionColumn + row].GetValue<string>(),
                         AspectRatio = string.IsNullOrWhiteSpace(catalog.AspectRatioColumn) ? null : worksheet.Cells[catalog.AspectRatioColumn + row].GetValue<string>().ToNullableInt(),
                         Width = string.IsNullOrWhiteSpace(catalog.WidthColumn) ? null : worksheet.Cells[catalog.WidthColumn + row].GetValue<string>().ToNullableInt(),
                         Profil = string.IsNullOrWhiteSpace(catalog.ProfilColumn) ? string.Empty : worksheet.Cells[catalog.ProfilColumn + row].GetValue<string>(),
                         LoadIndexSpeedRating = string.IsNullOrWhiteSpace(catalog.LoadIndexSpeedRatingColumn)
                             ? string.Empty
-                            : ConvertStringArrayToString(catalog.LoadIndexSpeedRatingColumn.Split(':').Select(s => worksheet.Cells[s + row].GetValue<string>()).ToArray())
+                            : catalog.LoadIndexSpeedRatingColumn.Split(':').Select(s => worksheet.Cells[s + row].GetValue<string>()).ConvertStringArrayToString()
                     };
 
-                    lines.Width = lines.Width ?? int.Parse(new string(lines.Dimension.Where(char.IsDigit).Take(3).ToArray()));
-                    var index = lines.Dimension.IndexOf('/');
-                    lines.AspectRatio = lines.AspectRatio ?? (index > 0 ? int.Parse(new string(lines.Dimension.Substring(index).Where(char.IsDigit).Take(2).ToArray())) : default(int?));
-                    yield return lines;
+                    line.Width = line.Width ?? int.Parse(new string(line.Dimension.Where(char.IsDigit).Take(3).ToArray()));
+                    var index = line.Dimension.IndexOf('/');
+                    line.AspectRatio = line.AspectRatio ?? (index > 0 ? int.Parse(new string(line.Dimension.Substring(index).Where(char.IsDigit).Take(2).ToArray())) : default(int?));
+                    yield return line;
                 }
             }
-        }
-
-        public static int CalculateFinalPrice(IEnumerable<DiscountRule> rules, int size, decimal price, decimal discount)
-        {
-            var finalPrice = decimal.Ceiling(price - price / 100 * discount);
-            var margin = rules.FirstOrDefault(r => r.Size == size && finalPrice >= r.FromPrice && finalPrice <= r.ToPrice)?.Margin;
-            return margin != null ? Convert.ToInt32(finalPrice + margin.Value) : 0;
-        }
-
-        private static int StringToSize(string text, SizeFormatEnum sizeFormat)
-        {
-            if (string.IsNullOrWhiteSpace(text)) return 0;
-            text = text.ToLower().TrimEnd();
-            switch (sizeFormat)
-            {
-                case SizeFormatEnum.Last2AlphaNumeric:
-                    text = text.Substring(text.Length - 2, 2);
-                    break;
-                case SizeFormatEnum.Rxx:
-                    var lastR = text.IndexOf('r');
-                    text = lastR >= 0 && text.Length - lastR > 1 ? text.Substring(text.IndexOf('r') + 1, 2) : "0";
-                    break;
-                case SizeFormatEnum.Simple:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(sizeFormat), sizeFormat, null);
-            }
-
-            int.TryParse(text, out var size);
-            return size;
-        }
-
-        private static string ConvertStringArrayToString(string[] array)
-        {
-            var builder = new StringBuilder();
-            foreach (var value in array) builder.Append(value);
-            return builder.ToString();
         }
     }
 }

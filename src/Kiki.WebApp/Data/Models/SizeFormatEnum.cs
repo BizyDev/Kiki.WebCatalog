@@ -4,6 +4,7 @@
     {
         Simple = 0,
         Last2AlphaNumeric = 1,
-        Rxx = 2
+        Rxx = 2,
+        Vredestein = 3
     }
 }
