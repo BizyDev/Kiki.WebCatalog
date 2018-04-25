@@ -1,13 +1,12 @@
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Kiki.WebApp.Services;
-
 namespace Kiki.WebApp.Pages.Account
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.Threading.Tasks;
     using Data.Models;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Services;
 
     public class ForgotPasswordModel : PageModel
     {
@@ -35,11 +34,7 @@ namespace Kiki.WebApp.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(Input.Email).ConfigureAwait(false);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user).ConfigureAwait(false)))
-                {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return RedirectToPage("./ForgotPasswordConfirmation");
-                }
+                if (user == null || !await _userManager.IsEmailConfirmedAsync(user).ConfigureAwait(false)) return RedirectToPage("./ForgotPasswordConfirmation");
 
                 // For more information on how to enable account confirmation and password reset please 
                 // visit https://go.microsoft.com/fwlink/?LinkID=532713

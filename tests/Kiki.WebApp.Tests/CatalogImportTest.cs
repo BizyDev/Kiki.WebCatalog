@@ -16,12 +16,10 @@
         public CatalogImportTest()
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionsBuilder.UseSqlite(@"Data Source=C:\workspace\#lab\Kiki.WebCatalog\src\Kiki.WebApp\Kiki.sqlite");
+            optionsBuilder.UseInMemoryDatabase("Test");
 
-            _excelReaderService = new ExcelReaderService(new Logger<ExcelReaderService>(new LoggerFactory()));
+            _excelReaderService = new ExcelReaderService(new PriceCalculatorService(), new Logger<ExcelReaderService>(new LoggerFactory()));
             _context = new ApplicationDbContext(optionsBuilder.Options);
-            //_context.DiscountRules.AddRange(ApplicationDbContextSeed.Rules);
-            //_context.SaveChanges();
         }
 
         [TestMethod]

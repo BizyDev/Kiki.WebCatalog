@@ -1,17 +1,16 @@
-﻿using Kiki.WebApp.Data;
-using Kiki.WebApp.Data.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Kiki.WebApp.Pages.Catalogs
+﻿namespace Kiki.WebApp.Pages.Catalogs
 {
-    using Microsoft.AspNetCore.Http;
-    using Services;
     using System.Collections.Immutable;
     using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Data;
+    using Data.Models;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.EntityFrameworkCore;
+    using Services;
 
     public class EditModel : PageModel
     {
@@ -50,13 +49,12 @@ namespace Kiki.WebApp.Pages.Catalogs
 
 
             if (CatalogFile != null)
-            {
                 using (var ms = new MemoryStream())
                 {
                     CatalogFile.CopyTo(ms);
                     Catalog.File = ms.ToArray();
                 }
-            }
+
             _context.Attach(Catalog).State = EntityState.Modified;
 
             try
@@ -66,12 +64,13 @@ namespace Kiki.WebApp.Pages.Catalogs
             catch (DbUpdateConcurrencyException)
             {
                 if (!CatalogExists(Catalog.Id)) return NotFound();
-                else throw;
+                throw;
             }
 
             if (!SyncProducts) return RedirectToPage("./Index");
 
             _context.Products.RemoveRange(_context.Products.Where(p => p.CatalogId == Catalog.Id).Select(p => new Product { Id = p.Id }));
+
             await _context.SaveChangesAsync().ConfigureAwait(false);
 
             var rules = _context.DiscountRules.ToImmutableList();

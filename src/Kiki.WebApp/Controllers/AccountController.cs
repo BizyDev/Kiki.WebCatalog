@@ -1,10 +1,10 @@
 namespace Kiki.WebApp.Controllers
 {
     using System.Threading.Tasks;
+    using Data.Models;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
-    using Data.Models;
 
     [Route("[controller]/[action]")]
     public class AccountController : Controller

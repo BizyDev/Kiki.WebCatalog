@@ -1,12 +1,12 @@
 ﻿namespace Kiki.WebApp.Data
 {
-    using Microsoft.EntityFrameworkCore;
-    using Models;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
+    using Microsoft.EntityFrameworkCore;
+    using Models;
 
     public class ApplicationDbContextSeed
     {
@@ -38,7 +38,7 @@
 
         private async Task SeedCatalogsAsync()
         {
-            List<Catalog> catalogs = Catalogs;
+            var catalogs = Catalogs;
             try
             {
                 await _context.Catalogs.AddRangeAsync(catalogs).ConfigureAwait(false);
@@ -71,7 +71,7 @@
                 Info2Column = "",
                 StartLineNumber = 5,
                 DiscountPercentage = 30,
-                SizeFormat = (SizeFormatEnum) 0,
+                SizeFormat = 0,
                 File = File.ReadAllBytes(@"..\..\docs\Prix été BF Goodrich.xlsx")
             },
             new Catalog
@@ -92,7 +92,7 @@
                 Info2Column = "J",
                 StartLineNumber = 11,
                 DiscountPercentage = 52,
-                SizeFormat = (SizeFormatEnum) 0,
+                SizeFormat = 0,
                 File = File.ReadAllBytes(@"..\..\docs\Prix été Bridgestone.xlsx")
             },
             new Catalog
@@ -218,7 +218,7 @@
                 Info2Column = "J",
                 StartLineNumber = 11,
                 DiscountPercentage = 52,
-                SizeFormat = (SizeFormatEnum) 0,
+                SizeFormat = 0,
                 File = File.ReadAllBytes(@"..\..\docs\Prix été Firestone.xlsx")
             },
             new Catalog
@@ -281,7 +281,7 @@
                 Info2Column = "",
                 StartLineNumber = 5,
                 DiscountPercentage = 30,
-                SizeFormat = (SizeFormatEnum) 0,
+                SizeFormat = 0,
                 File = File.ReadAllBytes(@"..\..\docs\Prix été Kleber.xlsx")
             },
             new Catalog
@@ -302,7 +302,7 @@
                 Info2Column = "",
                 StartLineNumber = 5,
                 DiscountPercentage = 30,
-                SizeFormat = (SizeFormatEnum) 0,
+                SizeFormat = 0,
                 File = File.ReadAllBytes(@"..\..\docs\Prix été Michelin .xlsx")
             },
             new Catalog
@@ -386,7 +386,7 @@
                 Info2Column = "",
                 StartLineNumber = 5,
                 DiscountPercentage = 30,
-                SizeFormat =  0,
+                SizeFormat = 0,
                 File = File.ReadAllBytes(@"..\..\docs\Prix été Tigar TTC..xlsx")
             },
             new Catalog
@@ -409,7 +409,7 @@
                 DiscountPercentage = 64,
                 SizeFormat = (SizeFormatEnum) 2,
                 File = File.ReadAllBytes(@"..\..\docs\Prix été Yoko.xlsx")
-            },
+            }
         };
 
         private async Task SeedDiscountRulesAsync()

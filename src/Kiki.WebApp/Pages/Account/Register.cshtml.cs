@@ -1,14 +1,13 @@
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using Kiki.WebApp.Services;
-
 namespace Kiki.WebApp.Pages.Account
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.Threading.Tasks;
     using Data.Models;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.Extensions.Logging;
+    using Services;
 
     public class RegisterModel : PageModel
     {
@@ -63,7 +62,7 @@ namespace Kiki.WebApp.Pages.Account
             ReturnUrl = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser {UserName = Input.Email, Email = Input.Email};
                 var result = await _userManager.CreateAsync(user, Input.Password).ConfigureAwait(false);
                 if (result.Succeeded)
                 {
@@ -73,13 +72,11 @@ namespace Kiki.WebApp.Pages.Account
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                     await _emailSender.SendEmailConfirmationAsync(Input.Email, callbackUrl).ConfigureAwait(false);
 
-                    await _signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
+                    await _signInManager.SignInAsync(user, false).ConfigureAwait(false);
                     return LocalRedirect(Url.GetLocalUrl(returnUrl));
                 }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+
+                foreach (var error in result.Errors) ModelState.AddModelError(string.Empty, error.Description);
             }
 
             // If we got this far, something failed, redisplay form

@@ -15,12 +15,13 @@
     {
         private readonly ExcelReaderService _excelReaderService;
         private readonly ApplicationDbContext _context;
+
         public ExcelReaderServiceTest()
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             optionsBuilder.UseInMemoryDatabase("Test");
-            
-            _excelReaderService = new ExcelReaderService(new Logger<ExcelReaderService>(new LoggerFactory()));
+
+            _excelReaderService = new ExcelReaderService(new PriceCalculatorService(), new Logger<ExcelReaderService>(new LoggerFactory()));
             _context = new ApplicationDbContext(optionsBuilder.Options);
             _context.DiscountRules.AddRange(ApplicationDbContextSeed.Rules);
             _context.SaveChanges();
@@ -41,7 +42,7 @@
                 Info3Column = "",
                 StartLineNumber = 2,
                 DiscountPercentage = 55,
-                SizeFormat = (SizeFormatEnum) 2,
+                SizeFormat = (SizeFormatEnum)2,
                 File = File.ReadAllBytes(@"C:\Users\Roxtar\Desktop\kiki\Prix été Pirelli.xlsx")
             };
             _context.ChangeTracker.AutoDetectChangesEnabled = false;
@@ -53,15 +54,6 @@
             products.ForEach(p => _context.Entry(p).State = EntityState.Added);
             _context.SaveChanges();
             Assert.IsTrue(_context.Products.Any());
-        }
-
-        [TestMethod]
-        [DataRow(16, 202, 52, 157)]
-        [DataRow(13, 92, 66, 64)]
-        public void ShouldCalculateFinalPrice(int size, int price, int discount, int result)
-        {
-            var finalPrice = ExcelReaderService.CalculateFinalPrice(ApplicationDbContextSeed.Rules, size, price, discount);
-            Assert.AreEqual(finalPrice, result);
         }
     }
 }

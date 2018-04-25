@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-
-namespace Kiki.WebApp.Pages
+﻿namespace Kiki.WebApp.Pages
 {
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
     public class ContactModel : PageModel
     {
         public string Message { get; set; }

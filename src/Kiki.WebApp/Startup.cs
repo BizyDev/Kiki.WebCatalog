@@ -40,7 +40,8 @@ namespace Kiki.WebApp
 
             services.AddSingleton<IEmailSender, EmailSender>();
             services.AddTransient<ApplicationDbContextSeed>();
-            services.AddTransient<ExcelReaderService>();
+            services.AddTransient<IPriceCalculatorService, PriceCalculatorService>();
+            services.AddTransient<IExcelReaderService, ExcelReaderService>();
         }
 
         public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContextSeed contextSeed)

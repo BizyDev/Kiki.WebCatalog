@@ -1,15 +1,14 @@
-﻿using Kiki.WebApp.Data;
-using Kiki.WebApp.Data.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Threading.Tasks;
-
-namespace Kiki.WebApp.Pages.Catalogs
+﻿namespace Kiki.WebApp.Pages.Catalogs
 {
-    using Microsoft.AspNetCore.Http;
-    using Services;
     using System.Collections.Immutable;
     using System.IO;
+    using System.Threading.Tasks;
+    using Data;
+    using Data.Models;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Services;
 
     public class CreateModel : PageModel
     {
@@ -38,18 +37,14 @@ namespace Kiki.WebApp.Pages.Catalogs
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            if (!ModelState.IsValid) return Page();
             if (CatalogFile != null)
-            {
                 using (var ms = new MemoryStream())
                 {
                     CatalogFile.CopyTo(ms);
                     Catalog.File = ms.ToArray();
                 }
-            }
+
             _context.Catalogs.Add(Catalog);
             await _context.SaveChangesAsync().ConfigureAwait(false);
 
