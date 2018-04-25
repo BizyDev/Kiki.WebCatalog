@@ -20,6 +20,7 @@
         public async Task SeedAsync()
         {
             if ((await _context.Database.GetPendingMigrationsAsync().ConfigureAwait(false)).Any())
+            {
                 try
                 {
                     await _context.Database.MigrateAsync().ConfigureAwait(false);
@@ -29,6 +30,7 @@
                     throw;
                     //TODO Log
                 }
+            }
 
             if (!await _context.Catalogs.AnyAsync().ConfigureAwait(false)) await SeedCatalogsAsync().ConfigureAwait(false);
             if (!await _context.DiscountRules.AnyAsync().ConfigureAwait(false)) await SeedDiscountRulesAsync().ConfigureAwait(false);
