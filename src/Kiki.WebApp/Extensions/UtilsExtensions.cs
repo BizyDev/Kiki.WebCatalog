@@ -1,9 +1,9 @@
 ﻿namespace Kiki.WebApp.Extensions
 {
     using System;
-    using Services;
     using Microsoft.Extensions.Logging;
     using OfficeOpenXml;
+    using Services;
 
     public static class UtilsExtensions
     {
@@ -23,7 +23,6 @@
             {
                 logger.LogError($"Impossible de caster la case {excelRangeBase.Address} de {catalog} à {typeof(T)}");
                 return default(T);
-
             }
         }
     }

@@ -1,15 +1,14 @@
-﻿using Kiki.WebApp.Data.Models;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Kiki.WebApp.Pages.Products
+﻿namespace Kiki.WebApp.Pages.Products
 {
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Data.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.EntityFrameworkCore;
 
     public class IndexModel : PageModel
     {
@@ -37,7 +36,7 @@ namespace Kiki.WebApp.Pages.Products
         public IndexModel(Data.ApplicationDbContext context)
         {
             _context = context;
-            Catalogs = _context.Catalogs.Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }).OrderBy(c => c.Text).ToList();
+            Catalogs = _context.Catalogs.Select(c => new SelectListItem {Text = c.Name, Value = c.Id.ToString()}).OrderBy(c => c.Text).ToList();
         }
 
         public IList<Product> Product { get; set; } = new List<Product>();

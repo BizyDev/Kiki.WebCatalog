@@ -3,7 +3,7 @@
     public class Product
     {
         public int Id { get; set; }
-        public string Brand{ get; set; }
+        public string Brand { get; set; }
         public decimal BasePrice { get; set; }
         public decimal FinalPrice { get; set; }
         public string Reference { get; set; }

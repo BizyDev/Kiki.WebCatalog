@@ -1,12 +1,12 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Kiki.WebApp.Data;
-using Kiki.WebApp.Data.Models;
-
-namespace Kiki.WebApp.Pages.Catalogs
+﻿namespace Kiki.WebApp.Pages.Catalogs
 {
+    using System.Threading.Tasks;
+    using Data;
+    using Data.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.EntityFrameworkCore;
+
     public class DeleteModel : PageModel
     {
         private readonly ApplicationDbContext _context;
@@ -21,26 +21,17 @@ namespace Kiki.WebApp.Pages.Catalogs
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             Catalog = await _context.Catalogs.SingleOrDefaultAsync(m => m.Id == id).ConfigureAwait(false);
 
-            if (Catalog == null)
-            {
-                return NotFound();
-            }
+            if (Catalog == null) return NotFound();
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             Catalog = await _context.Catalogs.FindAsync(id).ConfigureAwait(false);
 

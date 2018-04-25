@@ -1,5 +1,5 @@
 ﻿@page
-@model Kiki.WebApp.Pages.Products.CreateModel
+@model CreateModel
 
 @{
     ViewData["Title"] = "Create";
@@ -8,87 +8,87 @@
 <h2>Create</h2>
 
 <h4>Product</h4>
-<hr />
+<hr/>
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Product.Brand" class="control-label"></label>
-                <input asp-for="Product.Brand" class="form-control" />
+                <input asp-for="Product.Brand" class="form-control"/>
                 <span asp-validation-for="Product.Brand" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.BasePrice" class="control-label"></label>
-                <input asp-for="Product.BasePrice" class="form-control" />
+                <input asp-for="Product.BasePrice" class="form-control"/>
                 <span asp-validation-for="Product.BasePrice" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.FinalPrice" class="control-label"></label>
-                <input asp-for="Product.FinalPrice" class="form-control" />
+                <input asp-for="Product.FinalPrice" class="form-control"/>
                 <span asp-validation-for="Product.FinalPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.Reference" class="control-label"></label>
-                <input asp-for="Product.Reference" class="form-control" />
+                <input asp-for="Product.Reference" class="form-control"/>
                 <span asp-validation-for="Product.Reference" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.EAN" class="control-label"></label>
-                <input asp-for="Product.EAN" class="form-control" />
+                <input asp-for="Product.EAN" class="form-control"/>
                 <span asp-validation-for="Product.EAN" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.Dimension" class="control-label"></label>
-                <input asp-for="Product.Dimension" class="form-control" />
+                <input asp-for="Product.Dimension" class="form-control"/>
                 <span asp-validation-for="Product.Dimension" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.Width" class="control-label"></label>
-                <input asp-for="Product.Width" class="form-control" />
+                <input asp-for="Product.Width" class="form-control"/>
                 <span asp-validation-for="Product.Width" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.AspectRatio" class="control-label"></label>
-                <input asp-for="Product.AspectRatio" class="form-control" />
+                <input asp-for="Product.AspectRatio" class="form-control"/>
                 <span asp-validation-for="Product.AspectRatio" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.Dimater" class="control-label"></label>
-                <input asp-for="Product.Dimater" class="form-control" />
+                <input asp-for="Product.Dimater" class="form-control"/>
                 <span asp-validation-for="Product.Dimater" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.LoadIndexSpeedRating" class="control-label"></label>
-                <input asp-for="Product.LoadIndexSpeedRating" class="form-control" />
+                <input asp-for="Product.LoadIndexSpeedRating" class="form-control"/>
                 <span asp-validation-for="Product.LoadIndexSpeedRating" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.Profil" class="control-label"></label>
-                <input asp-for="Product.Profil" class="form-control" />
+                <input asp-for="Product.Profil" class="form-control"/>
                 <span asp-validation-for="Product.Profil" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.Info1" class="control-label"></label>
-                <input asp-for="Product.Info1" class="form-control" />
+                <input asp-for="Product.Info1" class="form-control"/>
                 <span asp-validation-for="Product.Info1" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.Info2" class="control-label"></label>
-                <input asp-for="Product.Info2" class="form-control" />
+                <input asp-for="Product.Info2" class="form-control"/>
                 <span asp-validation-for="Product.Info2" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.Info3" class="control-label"></label>
-                <input asp-for="Product.Info3" class="form-control" />
+                <input asp-for="Product.Info3" class="form-control"/>
                 <span asp-validation-for="Product.Info3" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Product.CatalogId" class="control-label"></label>
-                <select asp-for="Product.CatalogId" class ="form-control" asp-items="ViewBag.CatalogId"></select>
+                <select asp-for="Product.CatalogId" class="form-control" asp-items="ViewBag.CatalogId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default"/>
             </div>
         </form>
     </div>
@@ -99,5 +99,5 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

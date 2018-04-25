@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Kiki.WebApp.Data;
-using Kiki.WebApp.Data.Models;
-
-namespace Kiki.WebApp.Pages.Catalogs
+﻿namespace Kiki.WebApp.Pages.Catalogs
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Data;
+    using Data.Models;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.EntityFrameworkCore;
+
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _context;
@@ -16,7 +16,7 @@ namespace Kiki.WebApp.Pages.Catalogs
             _context = context;
         }
 
-        public IList<Catalog> Catalog { get;set; }
+        public IList<Catalog> Catalog { get; set; }
 
         public async Task OnGetAsync()
         {

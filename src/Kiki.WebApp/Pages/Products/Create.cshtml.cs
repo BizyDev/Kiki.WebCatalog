@@ -1,12 +1,12 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Kiki.WebApp.Data;
-using Kiki.WebApp.Data.Models;
-
-namespace Kiki.WebApp.Pages.Products
+﻿namespace Kiki.WebApp.Pages.Products
 {
+    using System.Threading.Tasks;
+    using Data;
+    using Data.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+
     public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _context;
@@ -18,7 +18,7 @@ namespace Kiki.WebApp.Pages.Products
 
         public IActionResult OnGet()
         {
-        ViewData["CatalogId"] = new SelectList(_context.Catalogs, "Id", "Id");
+            ViewData["CatalogId"] = new SelectList(_context.Catalogs, "Id", "Id");
             return Page();
         }
 
@@ -27,10 +27,7 @@ namespace Kiki.WebApp.Pages.Products
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            if (!ModelState.IsValid) return Page();
 
             _context.Products.Add(Product);
             await _context.SaveChangesAsync().ConfigureAwait(false);

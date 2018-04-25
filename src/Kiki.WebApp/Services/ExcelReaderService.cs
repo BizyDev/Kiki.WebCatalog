@@ -1,15 +1,15 @@
 ﻿namespace Kiki.WebApp.Services
 {
-    using Data.Models;
-    using Extensions;
-    using Microsoft.Extensions.Logging;
-    using OfficeOpenXml;
     using System;
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.IO;
     using System.Linq;
     using System.Text;
+    using Data.Models;
+    using Extensions;
+    using Microsoft.Extensions.Logging;
+    using OfficeOpenXml;
 
     public class ExcelReaderService
     {
@@ -52,8 +52,8 @@
                         Width = string.IsNullOrWhiteSpace(catalog.WidthColumn) ? null : worksheet.Cells[catalog.WidthColumn + row].GetValue<string>().ToNullableInt(),
                         Profil = string.IsNullOrWhiteSpace(catalog.ProfilColumn) ? string.Empty : worksheet.Cells[catalog.ProfilColumn + row].GetValue<string>(),
                         LoadIndexSpeedRating = string.IsNullOrWhiteSpace(catalog.LoadIndexSpeedRatingColumn)
-                        ? string.Empty
-                        : ConvertStringArrayToString(catalog.LoadIndexSpeedRatingColumn.Split(':').Select(s => worksheet.Cells[s + row].GetValue<string>()).ToArray())
+                            ? string.Empty
+                            : ConvertStringArrayToString(catalog.LoadIndexSpeedRatingColumn.Split(':').Select(s => worksheet.Cells[s + row].GetValue<string>()).ToArray())
                     };
 
                     lines.Width = lines.Width ?? int.Parse(new string(lines.Dimension.Where(char.IsDigit).Take(3).ToArray()));
@@ -66,7 +66,7 @@
 
         public static int CalculateFinalPrice(IEnumerable<DiscountRule> rules, int size, decimal price, decimal discount)
         {
-            var finalPrice = decimal.Ceiling(price - ((price / 100 * discount)));
+            var finalPrice = decimal.Ceiling(price - price / 100 * discount);
             var margin = rules.FirstOrDefault(r => r.Size == size && finalPrice >= r.FromPrice && finalPrice <= r.ToPrice)?.Margin;
             return margin != null ? Convert.ToInt32(finalPrice + margin.Value) : 0;
         }
@@ -89,6 +89,7 @@
                 default:
                     throw new ArgumentOutOfRangeException(nameof(sizeFormat), sizeFormat, null);
             }
+
             int.TryParse(text, out var size);
             return size;
         }

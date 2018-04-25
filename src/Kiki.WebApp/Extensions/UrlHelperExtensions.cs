@@ -4,10 +4,7 @@ namespace Microsoft.AspNetCore.Mvc
     {
         public static string GetLocalUrl(this IUrlHelper urlHelper, string localUrl)
         {
-            if (!urlHelper.IsLocalUrl(localUrl))
-            {
-                return urlHelper.Page("/Index");
-            }
+            if (!urlHelper.IsLocalUrl(localUrl)) return urlHelper.Page("/Index");
 
             return localUrl;
         }
@@ -16,18 +13,18 @@ namespace Microsoft.AspNetCore.Mvc
         {
             return urlHelper.Page(
                 "/Account/ConfirmEmail",
-                pageHandler: null,
-                values: new { userId, code },
-                protocol: scheme);
+                null,
+                new {userId, code},
+                scheme);
         }
 
         public static string ResetPasswordCallbackLink(this IUrlHelper urlHelper, string userId, string code, string scheme)
         {
             return urlHelper.Page(
                 "/Account/ResetPassword",
-                pageHandler: null,
-                values: new { userId, code },
-                protocol: scheme);
+                null,
+                new {userId, code},
+                scheme);
         }
     }
 }
