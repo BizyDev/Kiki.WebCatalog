@@ -25,7 +25,7 @@ namespace Kiki.WebApp.Pages.Account.Manage
             _emailSender = emailSender;
         }
 
-        public string Username { get; set; }
+        public string UserName { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
 
@@ -51,7 +51,7 @@ namespace Kiki.WebApp.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User).ConfigureAwait(false);
             if (user == null) throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
 
-            Username = user.UserName;
+            UserName = user.UserName;
 
             Input = new InputModel
             {

@@ -6,6 +6,7 @@
         public string Brand { get; set; }
         public decimal BasePrice { get; set; }
         public decimal FinalPrice { get; set; }
+        public decimal FinalPriceGarage { get; set; }
         public string Reference { get; set; }
         public string EAN { get; set; }
         public string Dimension { get; set; }

@@ -6,5 +6,6 @@
     public interface IPriceCalculatorService
     {
         int CalculateFinalPrice(IEnumerable<DiscountRule> rules, int size, decimal price, decimal discount);
+        int CalculateFinalGaragePrice(IEnumerable<DiscountRule> rules, int size, decimal price, decimal discount);
     }
 }

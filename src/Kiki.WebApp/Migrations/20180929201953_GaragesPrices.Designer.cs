@@ -12,9 +12,10 @@ using System;
 namespace Kiki.WebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180929201953_GaragesPrices")]
+    partial class GaragesPrices
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,13 +36,9 @@ namespace Kiki.WebApp.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("Entreprise");
-
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<string>("Nom");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -54,8 +51,6 @@ namespace Kiki.WebApp.Migrations
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<string>("Prenom");
 
                     b.Property<string>("SecurityStamp");
 
@@ -92,8 +87,6 @@ namespace Kiki.WebApp.Migrations
                     b.Property<string>("DimensionColumn");
 
                     b.Property<decimal>("DiscountPercentage");
-
-                    b.Property<bool>("DisplayForGarages");
 
                     b.Property<string>("EANColumn");
 

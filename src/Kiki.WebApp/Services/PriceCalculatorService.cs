@@ -13,5 +13,12 @@
             var margin = rules.FirstOrDefault(r => r.Size == size && finalPrice >= r.FromPrice && finalPrice <= r.ToPrice)?.Margin;
             return margin != null ? Convert.ToInt32(finalPrice + margin.Value) : 0;
         }
+
+        public int CalculateFinalGaragePrice(IEnumerable<DiscountRule> rules, int size, decimal price, decimal discount)
+        {
+            var finalPrice = decimal.Ceiling(price - (price / 100 * discount));
+            var margin = rules.FirstOrDefault(r => r.Size == size && finalPrice >= r.FromPrice && finalPrice <= r.ToPrice)?.MarginGarage;
+            return margin != null ? Convert.ToInt32(finalPrice + margin.Value) : 0;
+        }
     }
 }
