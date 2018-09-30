@@ -27,7 +27,7 @@
                 <li>
                     <a asp-page="/Products/Index">Pneus</a>
                 </li>
-                @if (Model.HttpContext.User.IsInRole("Admin") || Model.HttpContext.User.IsInRole("Admin"))
+                @if (Model.HttpContext.User.IsInRole("Admin") || Model.HttpContext.User.IsInRole("Kiki"))
                 {
                     <li>
                         <a asp-page="/Users/Index">Utilisateurs</a>
