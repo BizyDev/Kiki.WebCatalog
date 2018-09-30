@@ -54,6 +54,8 @@
 
         public async Task<IActionResult> OnPostAsync()
         {
+            IsKiki = User.IsInRole("Kiki") ? true : User.IsInRole("Admin");
+            Catalogs = await _context.Catalogs.Where(c => IsKiki || c.DisplayForGarages).Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }).OrderBy(c => c.Text).ToListAsync();
             if (!ModelState.IsValid || !int.TryParse(SelectedCatalog, out var selectedId) && !Width.HasValue && !AspectRatio.HasValue && !Diameter.HasValue && string.IsNullOrWhiteSpace(Search)) return Page();
 
             IsKiki = User.IsInRole("Kiki") ? true : User.IsInRole("Admin");
@@ -77,6 +79,7 @@
                     Info3 = p.Info3,
                     BasePrice = p.BasePrice,
                     FinalPrice = p.FinalPrice,
+                    FinalPriceGarage = p.FinalPriceGarage,
                     Dimension = p.Dimension,
                     EAN = p.EAN,
                     Reference = p.Reference,
