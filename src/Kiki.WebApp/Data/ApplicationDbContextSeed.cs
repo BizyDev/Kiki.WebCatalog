@@ -38,7 +38,8 @@
                     //TODO Log
                 }
             }
-
+            var user = await _userManager.FindByEmailAsync("info@kiki-pneus.ch");
+            await _userManager.AddToRoleAsync(user, "Kiki");
             if (!await _context.Catalogs.AnyAsync().ConfigureAwait(false)) await SeedCatalogsAsync().ConfigureAwait(false);
             if (!await _context.DiscountRules.AnyAsync().ConfigureAwait(false)) await SeedDiscountRulesAsync().ConfigureAwait(false);
             if (!await _context.DiscountRules.AnyAsync(d => d.MarginGarage > 0).ConfigureAwait(false))
