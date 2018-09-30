@@ -6,7 +6,6 @@
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<ApplicationUser> Users { get; set; }
         public DbSet<Catalog> Catalogs { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<DiscountRule> DiscountRules { get; set; }
