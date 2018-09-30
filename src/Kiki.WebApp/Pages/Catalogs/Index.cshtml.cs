@@ -4,9 +4,11 @@
     using System.Threading.Tasks;
     using Data;
     using Data.Models;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.EntityFrameworkCore;
 
+    [Authorize(Roles = "Admin,Kiki")]
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _context;

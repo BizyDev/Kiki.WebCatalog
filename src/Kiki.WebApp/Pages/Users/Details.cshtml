@@ -1,0 +1,55 @@
+﻿@page
+@model Kiki.WebApp.Pages.Users.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Utilisateur</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Utilisateur.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Utilisateur.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Utilisateur.UserName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Utilisateur.UserName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Utilisateur.Password)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Utilisateur.Password)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Utilisateur.Entreprise)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Utilisateur.Entreprise)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Utilisateur.Nom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Utilisateur.Nom)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Utilisateur.Prenom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Utilisateur.Prenom)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Utilisateur.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

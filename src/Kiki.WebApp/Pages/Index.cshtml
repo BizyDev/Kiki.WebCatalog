@@ -37,50 +37,59 @@
 
     <table class="table">
         <thead>
-        <tr>
-            <th>
-                Marque
-            </th>
-            <th>
-                Prix de base
-            </th>
-            <th>
-                Prix final
-            </th>
-            <th>
-                Réf
-            </th>
-            <th>
-                EAN
-            </th>
-            <th>
-                Dimension
-            </th>
-            <th>
-                Largeur
-            </th>
-            <th>
-                Rapport
-            </th>
-            <th>
-                Diamètre
-            </th>
-            <th>
-                Indice de charge/vitesse
-            </th>
-            <th>
-                Profil
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].Info1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].Info2)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product[0].Info3)
-            </th>
-        </tr>
+            <tr>
+                <th>
+                    Marque
+                </th>
+                @if (Model.IsKiki)
+                {
+                    <th>
+                        Prix de base
+                    </th>
+                    <th>
+                        Prix final
+                    </th>
+                }
+                else
+                {
+                    <th>
+                        Prix
+                    </th>
+                }
+                <th>
+                    Réf
+                </th>
+                <th>
+                    EAN
+                </th>
+                <th>
+                    Dimension
+                </th>
+                <th>
+                    Largeur
+                </th>
+                <th>
+                    Rapport
+                </th>
+                <th>
+                    Diamètre
+                </th>
+                <th>
+                    Indice de charge/vitesse
+                </th>
+                <th>
+                    Profil
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product[0].Info1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product[0].Info2)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product[0].Info3)
+                </th>
+            </tr>
         </thead>
         <tbody>
         @foreach (var item in Model.Product)
@@ -89,12 +98,21 @@
                 <td>
                     <b>@item.Brand</b>
                 </td>
-                <td>
-                    <b>@item.BasePrice</b>
-                </td>
-                <td style="color: #FF0000">
-                    <b>@item.FinalPrice</b>
-                </td>
+                @if (Model.IsKiki)
+                {
+                    <td>
+                        <b>@item.BasePrice</b>
+                    </td>
+                    <td style="color: #FF0000">
+                        <b>@item.FinalPrice</b>
+                    </td>
+                }
+                else
+                {
+                    <td style="color: #00ff21">
+                        <b>@item.FinalPriceGarage</b>
+                    </td>
+                }
                 <td>
                     @item.Reference
                 </td>
@@ -129,10 +147,10 @@
                     @item.Info3
                 </td>
                 @*<td>
-                            <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                            <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-                        </td>*@
+            <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+            <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+            <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+        </td>*@
             </tr>
         }
         </tbody>

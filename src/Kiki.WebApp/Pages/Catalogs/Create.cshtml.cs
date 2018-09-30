@@ -5,11 +5,13 @@
     using System.Threading.Tasks;
     using Data;
     using Data.Models;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Services;
 
+    [Authorize(Roles = "Admin,Kiki")]
     public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _context;

@@ -5,15 +5,21 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Data.Models;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
 
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly Data.ApplicationDbContext _context;
         public IList<SelectListItem> Catalogs;
+
+        [BindProperty]
+        public bool IsKiki { get; set; }
 
         [BindProperty]
         public string Search { get; set; }
@@ -33,10 +39,15 @@
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Que des chiffres please")]
         public int? Diameter { get; set; }
 
-        public IndexModel(Data.ApplicationDbContext context)
+        public IndexModel(Data.ApplicationDbContext context, IHttpContextAccessor contextAccessor)
         {
             _context = context;
-            Catalogs = _context.Catalogs.Select(c => new SelectListItem {Text = c.Name, Value = c.Id.ToString()}).OrderBy(c => c.Text).ToList();
+        }
+
+        public async Task OnGetAsync()
+        {
+            IsKiki = User.IsInRole("Kiki") ? true : User.IsInRole("Admin");
+            Catalogs = await _context.Catalogs.Where(c => IsKiki || c.DisplayForGarages).Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }).OrderBy(c => c.Text).ToListAsync();
         }
 
         public IList<Product> Product { get; set; } = new List<Product>();
@@ -45,6 +56,8 @@
         {
             if (!ModelState.IsValid || !int.TryParse(SelectedCatalog, out var selectedId) && !Width.HasValue && !AspectRatio.HasValue && !Diameter.HasValue && string.IsNullOrWhiteSpace(Search)) return Page();
 
+            IsKiki = User.IsInRole("Kiki") ? true : User.IsInRole("Admin");
+            
             Product = await _context.Products
                 .Where(p =>
                     (!Width.HasValue || p.Width == Width)
