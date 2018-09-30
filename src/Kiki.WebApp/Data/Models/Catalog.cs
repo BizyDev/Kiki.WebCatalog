@@ -28,6 +28,7 @@
         public int StartLineNumber { get; set; }
         public decimal DiscountPercentage { get; set; }
         public SizeFormatEnum SizeFormat { get; set; }
+        public bool DisplayForGarages { get; set; }
         public byte[] File { get; set; }
         public ICollection<Product> Products { get; set; }
     }

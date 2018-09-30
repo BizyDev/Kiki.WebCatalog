@@ -46,6 +46,7 @@
                         Info3 = string.IsNullOrWhiteSpace(catalog.Info3Column) ? string.Empty : worksheet.Cells[catalog.Info3Column + row].GetValue<string>(),
                         CatalogId = catalog.Id,
                         FinalPrice = _calculatorService.CalculateFinalPrice(rules, size, basePrice, catalog.DiscountPercentage),
+                        FinalPriceGarage = _calculatorService.CalculateFinalGaragePrice(rules, size, basePrice, catalog.DiscountPercentage),
                         Dimension = string.IsNullOrWhiteSpace(catalog.DimensionColumn) ? string.Empty : worksheet.Cells[catalog.DimensionColumn + row].GetValue<string>(),
                         AspectRatio = string.IsNullOrWhiteSpace(catalog.AspectRatioColumn) ? null : worksheet.Cells[catalog.AspectRatioColumn + row].GetValue<string>().ToNullableInt(),
                         Width = string.IsNullOrWhiteSpace(catalog.WidthColumn) ? null : worksheet.Cells[catalog.WidthColumn + row].GetValue<string>().ToNullableInt(),

@@ -7,5 +7,6 @@
         public decimal ToPrice { get; set; }
         public int Size { get; set; }
         public decimal Margin { get; set; }
+        public decimal MarginGarage { get; set; }
     }
 }
