@@ -2,6 +2,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>aspnet-Kiki.WebApp-FAF1FC75-4573-4375-A7E6-0140E9EE6A4B</UserSecretsId>
+    <RuntimeFrameworkVersion>2.1</RuntimeFrameworkVersion>
+    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="4.5.2.1" />
@@ -23,6 +25,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.4" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
   </ItemGroup>
 </Project>
