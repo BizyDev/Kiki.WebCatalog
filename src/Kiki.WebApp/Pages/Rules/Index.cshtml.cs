@@ -23,7 +23,7 @@ namespace Kiki.WebApp.Pages.Rules
 
         public async Task OnGetAsync()
         {
-            DiscountRule = await _context.DiscountRules.ToListAsync();
+            DiscountRule = await _context.DiscountRules.OrderBy(s => s.Size).ThenBy(s => s.FromPrice).ToListAsync();
         }
     }
 }

@@ -58,7 +58,7 @@
                     await _context.SaveChangesAsync().ConfigureAwait(false);
                 }
             }
-            return RedirectToPage("./Index");
+            return RedirectToPage(":./Rules/Index");
         }
     }
 }

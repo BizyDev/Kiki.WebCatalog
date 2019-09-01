@@ -86,7 +86,7 @@
 
                     if (!decimal.TryParse(margeCell, out var marge)) continue;
 
-                    var margeGarageCell = worksheet.Cells["C" + row].GetValue<string>();
+                    var margeGarageCell = worksheet.Cells["D" + row].GetValue<string>();
 
                     if  (!decimal.TryParse(margeGarageCell, out var margeGarage)) continue;
 
