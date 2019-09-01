@@ -63,5 +63,57 @@
                 }
             }
         }
+
+        public IEnumerable<DiscountRule> GetRules(byte[] file)
+        {
+            using (var ms = new MemoryStream(file))
+            using (var package = new ExcelPackage(ms))
+            {
+                var worksheet = package.Workbook.Worksheets[0];
+
+                var end = worksheet.Dimension.End;
+                for (var row = 1; row <= end.Row; row++)
+                {
+                    var priceCell = worksheet.Cells["A" + row].GetValue<string>();
+
+                    if (string.IsNullOrWhiteSpace(priceCell)) continue;
+
+                    var dimensionsCell = worksheet.Cells["B" + row].GetValue<string>();
+
+                    if (string.IsNullOrWhiteSpace(dimensionsCell)) continue;
+
+                    var margeCell = worksheet.Cells["C" + row].GetValue<string>();
+
+                    if (!decimal.TryParse(margeCell, out var marge)) continue;
+
+                    var margeGarageCell = worksheet.Cells["C" + row].GetValue<string>();
+
+                    if  (!decimal.TryParse(margeGarageCell, out var margeGarage)) continue;
+
+                    var priceArray = priceCell.Split('-');
+
+                    if (((priceArray.Count() == 2) //case XX-YY
+                       && decimal.TryParse(priceArray[0], out var priceFrom)
+                       && decimal.TryParse(priceArray[1], out var priceTo))
+                     || (priceArray.Count() == 1  //case >XX
+                      && decimal.TryParse(priceArray[0].Substring(1, priceArray[0].Length -1), out priceFrom) 
+                      && decimal.TryParse("999999", out priceTo)))
+                    {
+                        foreach (var dimensionCell in dimensionsCell.Split(','))
+                        {
+                            if (!int.TryParse(dimensionCell, out var dimesnion)) continue;
+                            yield return new DiscountRule
+                            {
+                                FromPrice = priceFrom,
+                                ToPrice = priceTo,
+                                Size = dimesnion,
+                                Margin = marge,
+                                MarginGarage = margeGarage
+                            };
+                        }
+                    }
+                }
+            }
+        }
     }
 }

@@ -7,5 +7,6 @@
     public interface IExcelReaderService
     {
         IEnumerable<Product> GetLines(Catalog catalog, ImmutableList<DiscountRule> rules);
+        IEnumerable<DiscountRule> GetRules(byte[] file);
     }
 }

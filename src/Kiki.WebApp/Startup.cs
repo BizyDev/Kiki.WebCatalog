@@ -46,7 +46,7 @@ namespace Kiki.WebApp
 
         public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContextSeed contextSeed)
         {
-            await contextSeed.SeedAsync().ConfigureAwait(false);
+            //await contextSeed.SeedAsync().ConfigureAwait(false);
             app.UseDeveloperExceptionPage();
             if (env.IsDevelopment())
             {

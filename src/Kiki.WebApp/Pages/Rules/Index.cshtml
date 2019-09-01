@@ -1,0 +1,52 @@
+﻿@page
+@model Kiki.WebApp.Pages.Rules.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DiscountRule[0].FromPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiscountRule[0].ToPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiscountRule[0].Size)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiscountRule[0].Margin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiscountRule[0].MarginGarage)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.DiscountRule) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FromPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Size)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Margin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MarginGarage)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
